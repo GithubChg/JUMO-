@@ -1,0 +1,16 @@
+@font-face {
+    font-family: "GowunBatang";
+    src: url("fonts/GowunBatang-Bold.ttf")
+}
+@font-face {
+    font-family: "NanumSquareR";
+    src: url("fonts/NanumSquareR.ttf")
+}
+@font-face {
+    font-family: "NanumSquareB";
+    src: url("fonts/NanumSquareB.ttf")
+}
+
+* {
+    font-family: NanumSquareR, sans-serif;
+}
