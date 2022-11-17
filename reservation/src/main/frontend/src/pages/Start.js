@@ -1,8 +1,24 @@
-import React from 'react';
+import React, {useEffect} from 'react';
+import { useNavigate } from 'react-router-dom';
 import "./css/Start.css";
 
 function Start(isManager) {
-    // isManager = true; // 확인용
+    const navigate = useNavigate();
+    const timeout = () => {
+        setTimeout(() => {
+            navigate("/resvcreate", { replace: true })
+            console.log("go to home")
+        }, 2000);
+    };
+
+    useEffect(() => {
+        timeout();
+        return() => {
+            clearTimeout(timeout);
+        };
+    });
+
+    isManager = false; // 확인용
     return (
         <>
             <div className="logo">
