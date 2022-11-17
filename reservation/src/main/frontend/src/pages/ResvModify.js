@@ -9,9 +9,9 @@ import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
 import "./css/styles.css";
 
-function ResvCreate() {
+function ResvModify(props) {
     const navigate = useNavigate();
-    const [date, setDate] = useState('2022-11-16');
+    const [date, setDate] = useState('2022-11-17');
     // const today = new Date();
     const dateList = ["2022-11-16", "2022-11-17"];    
     
@@ -21,7 +21,7 @@ function ResvCreate() {
         "오후 4:00", "오후 5:00", "오후 6:00", "오후 7:00", "오후 8:00", "오후 9:00", 
     ]
 
-    const [people, setPeople] = useState(1);
+    const [people, setPeople] = useState(3);
     const peopleList = [
         1, 2, 3, 4, 5, 6, 7, 8
     ]
@@ -40,7 +40,7 @@ function ResvCreate() {
         ["메뉴5", "60,000원"],
     ]
 
-    const onClickCreate = () => {
+    const onClickModify = () => {
         navigate("/resvcheck");
     };
 
@@ -49,12 +49,12 @@ function ResvCreate() {
             <Header />
             <div className="box">
                 <div className="menu">
-                    <div className="menuBtn on">
+                    <div className="menuBtn">
                         <Link to="/resvcreate" className="menuLink">
                             예약 등록
                         </Link>
                     </div>
-                    <div className="menuBtn">
+                    <div className="menuBtn on">
                         <Link to="/resvview" className="menuLink">
                             예약 조회/변경
                         </Link>
@@ -66,7 +66,7 @@ function ResvCreate() {
                     </div>
                 </div>
                 <div className="content">
-                    <div className="guide">등록할 예약 정보를 입력하세요</div>
+                    <div className="guide">변경할 예약 정보를 입력하세요</div>
                     <div className="title">예약 정보</div>
                     <Stack direction="row" alignItems="center" className="subcontent">
                         <div className="subtitle">날짜 및 시간</div>
@@ -101,6 +101,15 @@ function ResvCreate() {
                                         <input type="checkbox" key={item} disabled />
                                         <span key={item}>{item}</span>
                                     </label>
+                                </Grid> :
+                                idx===1 ?
+                                <Grid item>
+                                    <label
+                                        className="timeBtn"
+                                    >
+                                        <input type="checkbox" key={item} checked />
+                                        <span key={item}>{item}</span>
+                                    </label> 
                                 </Grid> :
                                 <Grid item>
                                     <label
@@ -149,7 +158,7 @@ function ResvCreate() {
                                         <div style={{width: '120px', height: '80px', border: '1px solid lightgray', borderRadius: '6px', marginBottom: '10px'}} />
                                         <Stack direction="row" justifyContent="center" alignItems="center" spacing={1}>
                                             <button style={{width: '22px', height: '22px', color: 'white', backgroundColor: '#5B9BD5', border: 'none', borderRadius: '20px'}}>-</button>
-                                            <div style={{padding: '6px 14px', fontSize: '14px', border: '1px solid #BFBFBF', borderRadius: '5px'}}>0</div>
+                                            <div style={{padding: '6px 14px', fontSize: '14px', border: '1px solid #BFBFBF', borderRadius: '5px'}}>1</div>
                                             <button style={{width: '22px', height: '22px', color: 'white', backgroundColor: '#5B9BD5', border: 'none', borderRadius: '20px'}}>+</button>
                                         </Stack>
                                     </Stack>
@@ -160,26 +169,26 @@ function ResvCreate() {
                     <div className="title" style={{marginTop: '50px'}}>예약자 정보</div>
                     <Stack direction="row" alignItems="center" className="subcontent">
                         <div className="subtitle">이름</div>
-                        <TextField label="" variant="outlined" size="small" style={{width: '120px'}} inputProps={{style: {fontSize: '14px'}}} placeholder="이름" />
+                        <TextField label="" variant="outlined" size="small" style={{width: '120px'}} inputProps={{style: {fontSize: '14px'}}} placeholder="이름" value="원규진" />
                     </Stack>
                     <Stack direction="row" alignItems="center" className="subcontent">
                         <div className="subtitle">전화번호</div>
-                        <TextField label="" variant="outlined" size="small" style={{width: '70px'}} inputProps={{style: {fontSize: '14px', textAlign: 'center'}}} placeholder="010" />
+                        <TextField label="" variant="outlined" size="small" style={{width: '70px'}} inputProps={{style: {fontSize: '14px', textAlign: 'center'}}} placeholder="010" value="010" />
                         <span style={{margin: '0 10px'}}>-</span>
-                        <TextField label="" variant="outlined" size="small" style={{width: '70px'}} inputProps={{style: {fontSize: '14px', textAlign: 'center'}}} placeholder="1234" />
+                        <TextField label="" variant="outlined" size="small" style={{width: '70px'}} inputProps={{style: {fontSize: '14px', textAlign: 'center'}}} placeholder="1234" value="1234" />
                         <span style={{margin: '0 10px'}}>-</span>
-                        <TextField label="" variant="outlined" size="small" style={{width: '70px'}} inputProps={{style: {fontSize: '14px', textAlign: 'center'}}} placeholder="5678" />
+                        <TextField label="" variant="outlined" size="small" style={{width: '70px'}} inputProps={{style: {fontSize: '14px', textAlign: 'center'}}} placeholder="5678" value="5678" />
                     </Stack>
                     <Stack direction="row" alignItems="center" className="subcontent">
                         <div className="subtitle">비밀번호</div>
-                        <TextField type="password" label="" variant="outlined" size="small" style={{width: '150px'}} inputProps={{style: {fontSize: '14px'}}} placeholder="" />
+                        <TextField type="password" label="" variant="outlined" size="small" style={{width: '150px'}} inputProps={{style: {fontSize: '14px'}}} placeholder="" value="12345" />
                     </Stack>
                     <Stack direction="row" alignItems="start" className="subcontent">
                         <div className="subtitle" style={{marginTop: '5px'}}>요청사항</div>
-                        <TextField label="" multiline rows={4} size="small" style={{width: '600px'}} inputProps={{style: {fontSize: '14px'}}} placeholder="요청사항을 적어주세요" />
+                        <TextField label="" multiline rows={4} size="small" style={{width: '600px'}} inputProps={{style: {fontSize: '14px'}}} placeholder="요청사항을 적어주세요" value="없음" />
                     </Stack>
                     <div style={{marginLeft: '45%', marginTop: '50px', marginBottom: '50px'}}>
-                        <button className="btn" onClick={onClickCreate}>등록</button>
+                        <button className="btn" onClick={onClickModify}>변경</button>
                     </div>
                 </div>
             </div>
@@ -187,4 +196,5 @@ function ResvCreate() {
     );
 }
 
-export default ResvCreate;
+
+export default ResvModify;

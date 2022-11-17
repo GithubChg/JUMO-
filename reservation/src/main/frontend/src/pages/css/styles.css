@@ -4,7 +4,7 @@
 }
 
 .toManager {
-    position: fixed;
+    position: absolute;
     right: 60px;
     padding: 10px 0;
     font-size: 12px;
@@ -31,12 +31,12 @@
 .box {
     margin: 10px 60px;
     display: flex;
-    /* border: 1px dashed deeppink; */
+    /* border: 1px solid pink; */
 }
 
 .content {
     display: block;
-    padding: 20px 50px;
+    padding: 10px 50px;
 }
 
 .menu {
@@ -96,7 +96,7 @@
 }
 
 .subtitle {
-    width: 120px;
+    min-width: 120px;
     font-family: NanumSquareR, sans-serif;
     font-size: 14px;
     color: black;
@@ -106,9 +106,54 @@
     margin: 10px 0;
 }
 
+.subcheck {
+    margin: 20px 0;
+}
+
+.contentcheck {
+    font-size: 14px;
+}
+
+.timeBtn {
+    display: grid;
+}
+
+.timeBtn input[type="checkbox"] {
+    display: none;
+}
+
+.timeBtn input[type="checkbox"]+span {
+    display: inline;
+    min-width: 70px;
+    text-align: center;
+    border: 1px solid #BFBFBF;
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-size: 14px;
+}
+
+.timeBtn input[type="checkbox"]:checked+span {
+    background-color: #5B9BD5;
+    border: 1px solid #5B9BD5;
+    color: white;
+}
+
+.timeBtn input[type="checkbox"]:hover+span {
+    border: 1px solid #BFBFBF;
+    background-color: #f0f4f7;
+    color: black;
+    cursor: pointer;
+}
+
+.timeBtn input[type="checkbox"]:disabled+span {
+    border: 1px solid #D9D9D9;
+    background-color: #D9D9D9;
+    color: white;
+    cursor: inherit;
+}
+
 .btn {
-    width: 130px;
-    height: 40px;
+    padding: 10px 50px;
     font-family: NanumSquareB, sans-serif;
     font-size: 16px;
     background-color: transparent;
