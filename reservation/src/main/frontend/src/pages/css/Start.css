@@ -21,7 +21,7 @@
     left: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
-    font-family: GowunBatang, sans-serif;
+    font-family: NanumSquareB, sans-serif;
     font-weight: bold;
     font-size: 60px;
     -webkit-animation: fade-out 1s ease-out 1s both;
@@ -30,6 +30,6 @@
 
 .sublogo {
     color: #BFBFBF;
-    font-family: GowunBatang, sans-serif;
+    font-family: NanumSquareB, sans-serif;
     font-size: 15px;
 }

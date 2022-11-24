@@ -16,7 +16,7 @@
 }
 
 .toHome {
-    font-family: GowunBatang, sans-serif;
+    font-family: NanumSquareB, sans-serif;
     font-weight: bold;
     font-size: 30px;
     text-decoration: none;
@@ -36,6 +36,7 @@
 
 .content {
     display: block;
+    width: 100%;
     padding: 10px 50px;
 }
 
@@ -167,4 +168,20 @@
     color: #2c71b1;
     background-color: #f0f4f7;
     cursor: pointer;
+}
+
+.menuImage {
+    position: absolute;
+    width: 120px;
+    height: 80px;
+    border-radius: 6px;
+    margin-top: 40px;
+    margin-bottom: 10px;
+    object-fit: cover;
+}
+
+.error {
+    font-size: 12px;
+    margin-left: 120px;
+    color: red;
 }
