@@ -5,7 +5,7 @@ import javax.persistence.*
 @Entity
 class Menu (
     @Id
-    var MenuName : String?=null,
+    var menuName : String?=null,
 
     @Column
     var price : Int?=null,
@@ -17,5 +17,8 @@ class Menu (
     var allergy : String?=null,
 
     @Column
-    var stock : Int?=null
+    var stock : Int?=null,
+
+    @Column
+    var imageLocation : String?=null
 )

@@ -1,26 +1,27 @@
 package com.JUMO.reservation.repository
 
-import java.time.LocalDateTime
 import javax.persistence.*
 
 @Entity
 class Reservation (
     @Id
-    var PhoneNumber : String?=null,
+    var phoneNumber : String?=null,
 
     @Column
     var userName : String?=null,
 
     @Column
-    var Password : String?=null,
+    var password : String?=null,
 
     @Column
-    var reservationDate : LocalDateTime?=null,
+    var reservationDate : String?=null,
 
     @Column
-    var Total : Int?=null,
+    var total : Int?=null,
 
     @Column
-    var MenuList : List<Menu>?=null,
+    var numPeople : Int?=null,
+    @Column
+    var reserveMenu : String?=null
 
 )
