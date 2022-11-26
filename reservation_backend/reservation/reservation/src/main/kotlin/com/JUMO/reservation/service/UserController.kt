@@ -78,7 +78,7 @@ class UserController {
             var total=duplicated.get().total
             var reserveMenu=duplicated.get().reserveMenu
             var numPeople=duplicated.get().numPeople
-            returnJSON= "{"+"\"data\":{"+"\"phoneNumber\" : \""+duplicated.get().phoneNumber+"\"numPeople\" : \""+duplicated.get().numPeople+"\",\"userName\" : \""+duplicated.get().userName+"\",\"password\" : \""+duplicated.get().password+"\",\"reservationDate\" : \""+duplicated.get().reservationDate+"\",\"reserveMenu\" : \""+duplicated.get().reserveMenu+"\",\"total\" : \""+duplicated.get().total+"\"},"+"\"message\" : \""+"readReservation_success"+"\"}"
+            returnJSON= "{"+"\"data\":{"+"\"phoneNumber\" : \""+duplicated.get().phoneNumber+",\"numPeople\" : \""+duplicated.get().numPeople+"\",\"userName\" : \""+duplicated.get().userName+"\",\"password\" : \""+duplicated.get().password+"\",\"reservationDate\" : \""+duplicated.get().reservationDate+"\",\"reserveMenu\" : \""+duplicated.get().reserveMenu+"\",\"total\" : \""+duplicated.get().total+"\"},"+"\"message\" : \""+"readReservation_success"+"\"}"
         }
         else{
             returnJSON="readReservation_fail"
@@ -174,5 +174,32 @@ class UserController {
         retunJSON += "]}"
 
         return retunJSON
+    }
+
+    @PostMapping("/verifyUser")
+    @Throws(IOException::class)
+    fun verifyUser(@RequestBody vo: VO): String {
+        var returnJSON = ""
+        var phoneNumber=vo.phoneNumber
+        var userName=vo.userName
+        var password=vo.password
+        val allReservation= reservationRepository!!.findAll()
+        var verify=false
+        for(reservations in allReservation){
+            if((reservations.phoneNumber==phoneNumber)&&(reservations.userName==userName)&&(reservations.password==password))
+                verify=true
+        }
+
+        if(verify) {
+
+            returnJSON="verifyUser_success"
+        }
+        else{
+            returnJSON="verifyUser_fail"
+        }
+
+
+        return returnJSON
+
     }
 }

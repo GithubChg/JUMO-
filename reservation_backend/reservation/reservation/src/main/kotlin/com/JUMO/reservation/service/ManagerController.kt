@@ -1,8 +1,6 @@
 package com.JUMO.reservation.service
 
-import com.JUMO.reservation.repository.Menu
-import com.JUMO.reservation.repository.MenuRepository
-import com.JUMO.reservation.repository.VO
+import com.JUMO.reservation.repository.*
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
@@ -22,6 +20,12 @@ class ManagerController {
 
     @Autowired
     private val menuRepository: MenuRepository? = null
+
+    @Autowired
+    private val reservationRepository: ReservationRepository? = null
+
+    @Autowired
+    private val restaurantRepository: RestaurantRepository? = null
 
     @PostMapping("/createMenu")
     @Throws(IOException::class)
@@ -149,5 +153,92 @@ class ManagerController {
         retunJSON = retunJSON.substring(0, retunJSON.length - 1)
         retunJSON += "]}"
         return retunJSON
+    }
+
+    @PostMapping("/readStatistic")
+    @Throws(IOException::class)
+    fun readStatistic(): String{
+        var retunJSON = "{\"readStatistic\" : ["
+        val allReservation= reservationRepository!!.findAll()
+        val allMenu= menuRepository!!.findAll()
+        var map=mutableMapOf<String,Int>()
+
+        for(menus in allMenu){
+            map.put(menus.menuName!!,0)
+        }
+
+        for (reservations in allReservation) {
+            var menuList=reservations.reserveMenu!!.split(",")
+            for(menulist in menuList){
+                for(menus in allMenu){
+                    if(menus.menuName!!.equals(menulist)){
+                        map[menus.menuName!!]=map[menus.menuName!!]!!+1
+                    }
+                }
+
+            }
+        }
+
+        for (menus in allMenu) {
+            retunJSON += "{\"menuName\" : \"" + menus.menuName + "\","
+            retunJSON += "\"num\" : \"" + map[menus.menuName] + "\"},"
+
+        }
+
+        retunJSON = retunJSON.substring(0, retunJSON.length - 1)
+        retunJSON += "]}"
+        return retunJSON
+    }
+
+
+    @PostMapping("/initializeRestaurant")
+    @Throws(IOException::class)
+    fun initializeRestaurant(): String{
+        var restaurant= Restaurant()
+        restaurant.restaurantName="JUMO"
+        restaurant.startTime="1100"
+        restaurant.endTime="2100"
+        restaurantRepository!!.save(restaurant)
+
+        var returnJSON="initializeRestaurant_success"
+        return returnJSON
+    }
+    @PostMapping("/updateRestaurant")
+    @Throws(IOException::class)
+    fun updateRestaurant(@RequestBody vo: VO): String{
+        var returnJSON=""
+        var targetRestaurant=restaurantRepository!!.findById("JUMO")
+
+        if(targetRestaurant.isPresent()){
+            targetRestaurant.get().startTime=vo.startTime
+            targetRestaurant.get().endTime=vo.endTime
+            restaurantRepository.save(targetRestaurant.get())
+            returnJSON="updateRestaurant_success"
+        }
+        else
+            returnJSON="updateRestaurant_fail"
+
+        return returnJSON
+
+    }
+
+    @PostMapping("/readRestaurant")
+    @Throws(IOException::class)
+    fun readRestaurant(): String{
+        var returnJSON=""
+        var targetRestaurant=restaurantRepository!!.findById("JUMO")
+
+        if(targetRestaurant.isPresent()){
+            var restaurantName=targetRestaurant.get().restaurantName
+            var startTime=targetRestaurant.get().startTime
+            var endTime=targetRestaurant.get().endTime
+            returnJSON= "{"+"\"data\":{"+"\"restaurantName\" : \""+restaurantName+"\",\"startTime\" : \""+startTime+"\",\"endTime\" : \""+endTime+"\"},"+"\"message\" : \""+"readRestaurant_success"+"\"}"
+
+        }
+        else
+            returnJSON="readRestaurant_fail"
+
+        return returnJSON
+
     }
 }
