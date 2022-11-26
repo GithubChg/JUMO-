@@ -196,8 +196,8 @@ class ManagerController {
     fun initializeRestaurant(): String{
         var restaurant= Restaurant()
         restaurant.restaurantName="JUMO"
-        restaurant.startTime="1100"
-        restaurant.endTime="2100"
+        restaurant.startTime="11:00"
+        restaurant.endTime="21:00"
         restaurantRepository!!.save(restaurant)
 
         var returnJSON="initializeRestaurant_success"

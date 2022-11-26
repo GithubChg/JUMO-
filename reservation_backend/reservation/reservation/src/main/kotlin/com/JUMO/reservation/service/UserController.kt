@@ -78,7 +78,7 @@ class UserController {
             var total=duplicated.get().total
             var reserveMenu=duplicated.get().reserveMenu
             var numPeople=duplicated.get().numPeople
-            returnJSON= "{"+"\"data\":{"+"\"phoneNumber\" : \""+duplicated.get().phoneNumber+",\"numPeople\" : \""+duplicated.get().numPeople+"\",\"userName\" : \""+duplicated.get().userName+"\",\"password\" : \""+duplicated.get().password+"\",\"reservationDate\" : \""+duplicated.get().reservationDate+"\",\"reserveMenu\" : \""+duplicated.get().reserveMenu+"\",\"total\" : \""+duplicated.get().total+"\"},"+"\"message\" : \""+"readReservation_success"+"\"}"
+            returnJSON= "{"+"\"data\":{"+"\"phoneNumber\" : \""+duplicated.get().phoneNumber+"\",\"numPeople\" : \""+duplicated.get().numPeople+"\",\"userName\" : \""+duplicated.get().userName+"\",\"password\" : \""+duplicated.get().password+"\",\"reservationDate\" : \""+duplicated.get().reservationDate+"\",\"reserveMenu\" : \""+duplicated.get().reserveMenu+"\",\"total\" : \""+duplicated.get().total+"\"},"+"\"message\" : \""+"readReservation_success"+"\"}"
         }
         else{
             returnJSON="readReservation_fail"

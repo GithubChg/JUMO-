@@ -1,0 +1,53 @@
+1. 식당 운영시간을 초기 설정해보고, 갱신해보고, 읽어보기
+
+http --json -v POST  http://localhost:8080/initializeRestaurant
+
+http --json -v POST  http://localhost:8080/updateRestaurant startTime="1000" endTime="1900"
+
+http --json -v POST  http://localhost:8080/readRestaurant
+
+2. Menu에 대한 CRUD 기능 사용해보기, 모든 메뉴의 목록을 읽어오기
+
+http --json -v POST  http://localhost:8080/createMenu menuName="tmenuname1" price=12000 description="tdescription" allergy="tallergy" stock=10 imageLocation="timageLocation"
+
+http --json -v POST  http://localhost:8080/createMenu menuName="tmenuname2" price=13000 description="tdescription" allergy="tallergy" stock=10 imageLocation="timageLocation"
+
+http --json -v POST  http://localhost:8080/createMenu menuName="tmenuname3" price=13000 description="tdescription" allergy="tallergy" stock=10 imageLocation="timageLocation"
+
+http --json -v POST  http://localhost:8080/createMenu menuName="tmenuname4" price=13000 description="tdescription" allergy="tallergy" stock=10 imageLocation="timageLocation"
+
+http --json -v POST  http://localhost:8080/readMenu menuName="tmenuname1" 
+
+http --json -v POST  http://localhost:8080/updateMenu oldMenuName="tmenuname1" price=10100 description="tdescriptionzz" allergy="tallergyzz" stock=10 imageLocation="timageLocatiozn"
+
+http --json -v POST  http://localhost:8080/deleteMenu menuName="tmenuname3" 
+
+http --json -v POST  http://localhost:8080/readMenuList
+
+
+2. 
+http --json -v POST  http://localhost:8080/createReservation phoneNumber="01012345678" numPeople=3 userName="chg" password="pw" reservationDate="202211261700" reserveMenu="tmenuname1,tmenuname1,tmenuname2"
+
+http --json -v POST  http://localhost:8080/createReservation phoneNumber="01000000000" numPeople=2 userName="chg" password="pw" reservationDate="202211261700" reserveMenu="tmenuname1,tmenuname2"
+
+http --json -v POST  http://localhost:8080/createReservation phoneNumber="01011111111" numPeople=4 userName="chg" password="pw" reservationDate="202211261700" reserveMenu="tmenuname1,tmenuname2"
+
+http --json -v POST  http://localhost:8080/updateReservation phoneNumber="01011111111" numPeople=4 userName="chgupdate" password="pw" reservationDate="202211261800" reserveMenu="tmenuname1,tmenuname2"
+
+http --json -v POST  http://localhost:8080/readReservation phoneNumber="01011111111" 
+
+http --json -v POST  http://localhost:8080/deleteReservation phoneNumber="01011111111"
+
+http --json -v POST  http://localhost:8080/readReservationList
+
+http --json -v POST  http://localhost:8080/readStatistic
+
+http --json -v POST  http://localhost:8080/verifyUser phoneNumber="01012345678" userName="chg" password="pw"
+
+http --json -v POST  http://localhost:8080/verifyUser phoneNumber="01012345678" userName="chg" password="pddw"
+
+
+남은 개발
+사진 업로드 기능 구현
+서버 배포
+

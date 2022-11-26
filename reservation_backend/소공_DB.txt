@@ -1,0 +1,84 @@
+docker run -p 3306:3306 --name reservation -e MYSQL_ROOT_PASSWORD=abc -e MYSQL_DATABASE=reservation -e MYSQL_USER=chg -e MYSQL_PASSWORD=abc -d mysql
+
+
+
+DB
+
+
+class Menu (
+
+//메뉴의 이름 (key)
+    @Id
+    var menuName : String?=null,
+
+//메뉴의 가격
+    @Column
+    var price : Int?=null,
+
+//메뉴의 설명
+    @Column
+    var description : String?=null,
+
+//메뉴의 알레르기 정보 
+    @Column
+    var allergy : String?=null,
+
+//메뉴의 재고 수량
+    @Column
+    var stock : Int?=null,
+
+//메뉴의 사진이 저장된 경로
+    @Column
+    var imageLocation : String?=null
+)
+
+
+class Reservation (
+
+//전화번호
+    @Id
+    var phoneNumber : String?=null,
+
+//고객명
+    @Column
+    var userName : String?=null,
+
+//비밀번호
+    @Column
+    var password : String?=null,
+
+//예약시간 ex) "2022-11-27-13:00"
+    @Column
+    var reservationDate : String?=null,
+
+//금액 합계 
+    @Column
+    var total : Int?=null,
+
+//예약 인원
+    @Column
+    var numPeople : Int?=null,
+
+//예약 메뉴 (여러 메뉴를 예약할 경우 ","를 구분자로 구분되는 String으로 전송) ex) "메뉴1,메뉴1,메뉴2,메뉴3"
+    @Column
+    var reserveMenu : String?=null
+
+)
+
+
+class Restaurant (
+
+//식당 이름 (일단은 "JUMO"로 고정)
+    @Id
+    var restaurantName : String?=null,
+
+//식당 시작 시간 ("11:00"을 default 값으로 설정)
+    @Column
+    var startTime : String?=null,
+
+//식당 종료 시간 ("21:00"을 default 값으로 설정)
+    @Column
+    var endTime : String?=null
+
+)
+
