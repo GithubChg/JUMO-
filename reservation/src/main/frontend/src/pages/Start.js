@@ -1,14 +1,18 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import "./css/Start.css";
 
-function Start(isManager) {
+function Start(props) {
     const navigate = useNavigate();
     const timeout = () => {
         setTimeout(() => {
-            navigate("/resvcreate", { replace: true })
-            console.log("go to home")
-        }, 2000);
+            console.log(props.isManager);
+            props.isManager 
+            ? sessionStorage.getItem('userId')===null
+            ? navigate("/login") 
+            : navigate("/manager/resvview")
+            : navigate("/resvcreate");
+        }, 1000);
     };
 
     useEffect(() => {
@@ -18,13 +22,12 @@ function Start(isManager) {
         };
     });
 
-    isManager = false; // 확인용
     return (
         <>
             <div className="logo">
                 JUMO!
                 <div className="sublogo">
-                    {isManager ? "관리자용" : "간단한 오마카세 예약"}
+                    {props.isManager ? "관리자용" : "간단한 오마카세 예약"}
                 </div>
             </div>
         </>
