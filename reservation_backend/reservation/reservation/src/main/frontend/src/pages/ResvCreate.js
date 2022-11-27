@@ -66,13 +66,19 @@ function ResvCreate() {
         const result = {};
         result["reservationDate"] = date+" "+TimeList[time];
         result["numPeople"] = peopleCnt;
-        result["reserveMenu"] = menuCnt
         result["total"] = price
         result["userName"] = name
         result["phoneNumber"] = number[0]+number[1]+number[2]
         result["password"] = password
         result["comment"] = comment
-        console.log("데이터 입력")
+
+        var menuList = ""
+        for (var i=0; i<menuCnt.length; i++) {
+            for (var j=0; j<menuCnt[i]; j++) {
+                menuList += MenuList[i][0]+","
+            }
+        }
+        result["reserveMenu"] = menuList.slice(0,menuList.length-1)
 
         if (time===-1||price===0||name===''||number[0]===''||number[1]===''||number[2]===''||password==='') {
             if(time===-1) { setEmptyTime(true) } 
@@ -87,6 +93,14 @@ function ResvCreate() {
             else { setEmptyPassword(false) }
         } else {
             console.log(result);
+            axios({
+                url: "/api/createReservation",
+                method: 'post',
+                data: result,
+                baseUrl: "http://localhost:8080"
+            }).then((res) => {
+                console.log(res)
+            })
             // 예약 확인 페이지로
             alert("예약이 완료되었습니다!")
             navigate("/resvcheck", {state: {
@@ -121,18 +135,18 @@ function ResvCreate() {
     //     .catch(error => console.log(error))
     // }, []);
 
-    useEffect(() => {
-        axios({
-            url: "/api/hellopost",
-            method: 'post',
-            data: {
-                data: "제발제발",
-            },
-            baseUrl: "http://localhost:8080"
-        }).then((res) => {
-            console.log(res.data)
-        })
-    })
+    // useEffect(() => {
+    //     axios({
+    //         url: "/api/hellopost",
+    //         method: 'post',
+    //         data: {
+    //             userName: "제발제발",
+    //         },
+    //         baseUrl: "http://localhost:8080"
+    //     }).then((res) => {
+    //         console.log(res)
+    //     })
+    // }, [])
 
     return (
         <>

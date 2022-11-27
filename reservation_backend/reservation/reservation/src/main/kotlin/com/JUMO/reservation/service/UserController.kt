@@ -18,10 +18,10 @@ class UserController {
     @PostMapping("/api/hellopost")
     @Throws(IOException::class)
     fun postTest(@RequestBody vo: VO): String {
-        if(vo.data == null) {
+        if(vo.equals(null)) {
             println("null값 전달됨");
         } else {
-            println("성공!" + vo.data);
+            println("성공! ${vo}");
         }
         return "통신 성공"
     }
@@ -32,7 +32,7 @@ class UserController {
     @Autowired
     private val reservationRepository: ReservationRepository? = null
 
-    @PostMapping("/createReservation")
+    @PostMapping("/api/createReservation")
     @Throws(IOException::class)
     fun createReservation(@RequestBody vo: VO): String {
         var returnJSON = ""
@@ -42,24 +42,24 @@ class UserController {
         var reservationDate=vo.reservationDate
         var reserveMenu=vo.reserveMenu
         var numPeople=vo.numPeople
-        var total=0
+        var total=vo.total
 
         //같은 전화번호의 예약이 있는지 확인하고 없으면 예약 생성
         var duplicated=reservationRepository!!.findById(phoneNumber!!)
         
         if(!(duplicated.isPresent())) {
             var targetReservation= Reservation()
-            var menuList=reserveMenu!!.split(",")
+//            var menuList=reserveMenu!!.split(",")
 
             //가격 계산
-            for(i in menuList){
-                total+=menuRepository!!.findById(i).get().price!!
-            }
+//            for(i in menuList){
+//                total+=menuRepository!!.findById(i).get().price!!
+//            }
 
-            targetReservation.phoneNumber=vo.phoneNumber
-            targetReservation.userName=vo.userName
-            targetReservation.password=vo.password
-            targetReservation.reservationDate=vo.reservationDate
+            targetReservation.phoneNumber=phoneNumber
+            targetReservation.userName=userName
+            targetReservation.password=password
+            targetReservation.reservationDate=reservationDate
             targetReservation.total=total
             targetReservation.reserveMenu=reserveMenu
             targetReservation.numPeople=numPeople
