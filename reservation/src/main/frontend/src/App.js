@@ -11,6 +11,11 @@ import Login from './pages/Login';
 import MResvView from './pages/MResvView';
 import MResvModify from './pages/MResvModify';
 import MResvStats from './pages/MResvStats';
+import MTimeModify from './pages/MTimeModify';
+import MTimeCheck from './pages/MTimeCheck';
+import MMenuView from './pages/MMenuView';
+import MMenuModify from './pages/MMenuModify';
+
 
 function App() {
   return (
@@ -28,6 +33,12 @@ function App() {
             <Route path="/manager/resvview" element={<MResvView />} />
             <Route path="/manager/resvmodify" element={<MResvModify />} />
             <Route path="/manager/resvstats" element={<MResvStats />} />
+            <Route path="/manager/mtimemodify" element={<MTimeModify />} />
+            <Route path="/manager/mtimecheck" element={<MTimeCheck />} />
+            <Route path="/manager/mmenuview" element={<MMenuView />} />
+            <Route path="/manager/mmenumodify" element={<MMenuModify />} />
+
+
         </Routes>
       </BrowserRouter>
     </>
