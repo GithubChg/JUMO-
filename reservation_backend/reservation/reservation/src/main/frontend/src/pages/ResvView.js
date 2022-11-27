@@ -3,11 +3,12 @@ import { useNavigate, Link } from 'react-router-dom';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import Header from '../components/Header';
-import TimeList from "../data/TimeList.js";
-import MenuList from "../data/MenuList.js";
+import axios from 'axios';
+import ResvViewContent from '../components/ResvViewContent';
 
 function ResvView() {  
     const [auth, setAuth] = useState(false);
+    const [id, setId] = useState('');
 
     const Menu = () => {
         return (
@@ -47,13 +48,27 @@ function ResvView() {
             else {
                 setEmptyName(false)
                 setEmptyPassword(false)
-                if(name==='원규진'&&password==='1234') {
-                    alert('확인되었습니다. 예약을 조회합니다.')
-                    setAuth(true);
-                }
-                else {
-                    alert('이름 또는 비밀번호가 잘못되었습니다.')
-                }
+                axios({
+                    url: "/api/verifyUser",
+                    method: 'post',
+                    data: {
+                        userName: name,
+                        password: password,
+                    },
+                    baseUrl: "http://localhost:8080"
+                }).then((res) => {
+                    console.log(res.data)
+                    if(res.data!=="NULL") {
+                        setId(res.data)
+                        setAuth(true)
+                        alert('확인되었습니다. 예약을 조회합니다.')
+                    } else {
+                        setAuth(false)
+                        alert('이름 또는 비밀번호가 잘못되었습니다.')
+                    }
+                    setId(res.data)
+                    console.log({"auth":auth, "res":res.data, "id":id})
+                })
             }
         };
     
@@ -100,116 +115,11 @@ function ResvView() {
         );
     }
 
-    const [date, setDate] = useState('2022-11-29');
-    const [time, setTime] = useState(5);
-    const [peopleCnt, setPeopleCnt] = useState(2);
-    const [menuCnt, setMenuCnt] = useState([1,2,3,0,0,0,0,0,0,0]);
-    const [price, setPrice] = useState(200000);
-    const [name, setName] = useState('원규진');
-    const [number, setNumber] = useState(['010', '1234', '5678'])
-    const [password, setPassword] = useState('1234');
-    const [comment, setComment] = useState('안녕하세요');
-
-    // useEffect(() => {
-    //     fetch("/readReservation")
-    //     .then((res) => res.json())
-    //     .then((data) => {
-    //         setDate(data.date)
-    //         // setTime()
-    //         setPeopleCnt(data.numPeople)
-    //         // setMenuCnt()
-    //         setPrice(data.total)
-    //         setName(data.userName)
-    //         setNumber([data.phoneNumber.slice(0,3), data.phoneNumber.slice(3,7), data.phoneNumber.slice(7,11)])
-    //         setPassword(data.password)
-    //         // setComment()
-
-    //         console.log({
-    //             date: date,
-    //             time: time,
-    //             peopleCnt: peopleCnt,
-    //             menuCnt: menuCnt,
-    //             price: price,
-    //             name: name,
-    //             number: number,
-    //             password: password,
-    //             comment: comment,
-    //         })
-    //     })
-    // })
-
-    // 변경 버튼 클릭
-    const navigate = useNavigate();
-    const onModify = () => {
-        alert("예약 변경 페이지로 이동합니다.")
-        navigate("/resvmodify", {state: {
-            date: date,
-            time: time,
-            peopleCnt: peopleCnt,
-            menuCnt: menuCnt,
-            price: price,
-            name: name,
-            number: number,
-            password: password,
-            comment: comment,
-        }});
-    }
-
     return (
         auth===false ?
         <UserAuth /> :
         <>
-            <Header />
-            <div className="box">
-                <Menu />
-                <div className="content">
-                    <Stack direction="row" alignItems="center" justifyContent="space-between">
-                        <div className="guide">예약 조회</div>
-                        <button onClick={onModify} className="btn" style={{padding: '6px 15px', marginBottom: '15px', borderRadius: '8px', textDecoration: 'none'}}>변경</button>
-                    </Stack>
-                    <Stack direction="row" justifyContent="space-between">
-                        <div style={{minWidth: '500px'}}>
-                            <div className="title">예약 정보</div>
-                            <Stack direction="row" alignItems="center" className="subcheck">
-                                <div className="subtitle">날짜 및 시간</div>
-                                <div className="contentcheck">{date} {TimeList[time]}</div>
-                            </Stack>
-                            <Stack direction="row" alignItems="center" className="subcheck">
-                                <div className="subtitle">인원</div>
-                                <div className="contentcheck">{peopleCnt} 명</div>
-                            </Stack>
-                            <Stack direction="row" alignItems="start" className="subcheck" mt={2}>
-                                <div>
-                                    <div className="subtitle">메뉴</div>
-                                    <div style={{color: "#5B9BD5", fontSize: "12px", marginTop: '10px'}}>총 {price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}원</div>
-                                </div>
-                                <Stack spacing={1}>
-                                    {
-                                        MenuList.map((item, idx) => (
-                                            menuCnt[idx]>0 ?
-                                            <div className="contentcheck">{item[0]} ({menuCnt[idx]}개)</div>
-                                            : null
-                                    ))}
-                                </Stack>
-                            </Stack>
-                            <div style={{height: 10}}></div>
-                            <div className="title">예약자 정보</div>
-                            <Stack direction="row" alignItems="center" className="subcheck">
-                                <div className="subtitle">이름</div>
-                                <div className="contentcheck">{name}</div>
-                            </Stack>
-                            <Stack direction="row" alignItems="center" className="subcheck">
-                                <div className="subtitle">전화번호</div>
-                                <div className="contentcheck">{number[0]+'-'+number[1]+'-'+number[2]}</div>
-                            </Stack>
-                            <Stack direction="row" alignItems="center" className="subcheck">
-                                <div className="subtitle">요청사항</div>
-                                <div className="contentcheck">{comment}</div>
-                            </Stack>
-                        </div>
-                    </Stack>
-                </div>
-            </div>
+            <ResvViewContent id={id} />
         </>
     );
 }

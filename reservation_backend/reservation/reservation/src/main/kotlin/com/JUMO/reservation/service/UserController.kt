@@ -76,7 +76,7 @@ class UserController {
         return returnJSON
     }
 
-    @PostMapping("/readReservation")
+    @PostMapping("/api/readReservation")
     @Throws(IOException::class)
     fun readReservation(@RequestBody vo: VO): String{
         var returnJSON = ""
@@ -189,30 +189,29 @@ class UserController {
         return retunJSON
     }
 
-    @PostMapping("/verifyUser")
+    @PostMapping("/api/verifyUser")
     @Throws(IOException::class)
     fun verifyUser(@RequestBody vo: VO): String {
         var returnJSON = ""
-        var phoneNumber=vo.phoneNumber
         var userName=vo.userName
         var password=vo.password
+        var phoneNumber = ""
         val allReservation= reservationRepository!!.findAll()
         var verify=false
         for(reservations in allReservation){
-            if((reservations.phoneNumber==phoneNumber)&&(reservations.userName==userName)&&(reservations.password==password))
+            if((reservations.userName==userName)&&(reservations.password==password)) {
                 verify=true
+                phoneNumber = reservations.phoneNumber.toString()
+            }
         }
-
         if(verify) {
-
-            returnJSON="verifyUser_success"
+            // true면 전화번호 반환
+            returnJSON=phoneNumber
         }
         else{
-            returnJSON="verifyUser_fail"
+            // false면 다른거 반환
+            returnJSON="NULL"
         }
-
-
         return returnJSON
-
     }
 }
