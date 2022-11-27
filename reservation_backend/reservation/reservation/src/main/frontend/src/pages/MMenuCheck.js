@@ -19,7 +19,7 @@ function MMenuCheck() {
 
     return (
         <>
-            <Header isManager={true} />
+            {/* <Header isManager={true} />
             <div className="box">
                 <Stack className="menu" justifyContent="space-between">
                     <div>
@@ -67,7 +67,7 @@ function MMenuCheck() {
                         </div>
                     </Stack>
                 </div>
-            </div>
+            </div> */}
         </>
     );
 }

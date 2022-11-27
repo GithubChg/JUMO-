@@ -62,7 +62,7 @@ function ResvCheck() {
                                     {
                                         MenuList.map((item, idx) => (
                                             menuCnt[idx]>0 ?
-                                            <div className="contentcheck">{item[0]} ({menuCnt[idx]}개)</div>
+                                            <div className="contentcheck" key={item+idx}>{item[0]} ({menuCnt[idx]}개)</div>
                                             : null
                                     ))}                                  
                                 </Stack>

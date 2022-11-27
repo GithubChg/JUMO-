@@ -87,8 +87,8 @@ function MTimeModify(props) {
                                 
                             >
                                 {
-                                    starttimeList.map((item) => (
-                                    <MenuItem value={item} key={item} style={{fontSize: '14px'}}>{item}</MenuItem>
+                                    starttimeList.map((item, idx) => (
+                                    <MenuItem value={item} key={idx+item} style={{fontSize: '14px'}}>{item}</MenuItem>
                                 ))}
                             </Select>
                         </FormControl>
@@ -106,8 +106,8 @@ function MTimeModify(props) {
                                 style={inputStyle}
                             >
                                 {
-                                    startminuteList.map((item) => (
-                                    <MenuItem value={item} key={item} style={{fontSize: '14px'}}>{item}</MenuItem>
+                                    startminuteList.map((item, idx) => (
+                                    <MenuItem value={item} key={idx+item} style={{fontSize: '14px'}}>{item}</MenuItem>
                                 ))}
                             </Select>
                         </FormControl>

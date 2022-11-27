@@ -59,7 +59,7 @@ function MMenuModify(props) {
                    
              
             
-                    <Stack direction="row" alignItems="start" className="subcontent" mt={2}>
+                    {/* <Stack direction="row" alignItems="start" className="subcontent" mt={2}>
                         <div>
                             <div className="subtitle">메뉴<span style={{fontSize:'14px', color:'red'}}> *</span></div>
                             <div style={{color: "#5B9BD5", fontSize: "12px", marginTop: '10px'}}>총 {price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}원</div>
@@ -111,7 +111,7 @@ function MMenuModify(props) {
                     {emptyPrice ? <span className="error">*메뉴를 선택하세요</span> : null}
                     <div style={{marginLeft: '45%', marginTop: '50px', marginBottom: '50px'}}>
                         <button className="btn" onClick={onClickModify}>변경</button>
-                    </div>
+                    </div> */}
                 </div>
             </div>
         </>

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import Header from '../components/Header';
 import MenuItem from '@mui/material/MenuItem';
@@ -11,6 +11,7 @@ import TimeList from "../data/TimeList.js";
 import MenuList from "../data/MenuList.js";
 import MenuModal from '../components/MenuModal';
 import "./css/styles.css";
+import axios from 'axios';
 
 function ResvCreate() {
     // 예약 날짜 설정
@@ -58,22 +59,21 @@ function ResvCreate() {
     const [emptyNumber, setEmptyNumber] = useState(false);
     const [emptyPassword, setEmptyPassword] = useState(false);
 
-    // 최종 데이터
-    // const [data, setData] = useState({
-    //     date: date,
-    //     time: time,
-    //     peopleCnt: peopleCnt,
-    //     menuCnt: menuCnt,
-    //     price: price,
-    //     name: name,
-    //     number: number,
-    //     password: password,
-    //     comment: comment,
-    // });
-
     // 등록 버튼 클릭, 데이터 저장하고 파라미터 보내기
     const navigate = useNavigate();
     const onClickCreate = () => {
+        // 최종 데이터 생성
+        const result = {};
+        result["reservationDate"] = date+" "+TimeList[time];
+        result["numPeople"] = peopleCnt;
+        result["reserveMenu"] = menuCnt
+        result["total"] = price
+        result["userName"] = name
+        result["phoneNumber"] = number[0]+number[1]+number[2]
+        result["password"] = password
+        result["comment"] = comment
+        console.log("데이터 입력")
+
         if (time===-1||price===0||name===''||number[0]===''||number[1]===''||number[2]===''||password==='') {
             if(time===-1) { setEmptyTime(true) } 
             else { setEmptyTime(false) }
@@ -86,17 +86,8 @@ function ResvCreate() {
             if(password==='') { setEmptyPassword(true) } 
             else { setEmptyPassword(false) }
         } else {
-            // setData({
-            //     date: date,
-            //     time: time,
-            //     peopleCnt: peopleCnt,
-            //     menuCnt: menuCnt,
-            //     price: price,
-            //     name: name,
-            //     number: number,
-            //     password: password,
-            //     comment: comment,
-            // });
+            console.log(result);
+            // 예약 확인 페이지로
             alert("예약이 완료되었습니다!")
             navigate("/resvcheck", {state: {
                 date: date,
@@ -122,9 +113,31 @@ function ResvCreate() {
         }
     };
 
+    // const [hello, setHello] = useState('')
+
+    // useEffect(() => {
+    //     axios.get("/api/hello")
+    //     .then(response => setHello(response.data))
+    //     .catch(error => console.log(error))
+    // }, []);
+
+    useEffect(() => {
+        axios({
+            url: "/api/hellopost",
+            method: 'post',
+            data: {
+                data: "제발제발",
+            },
+            baseUrl: "http://localhost:8080"
+        }).then((res) => {
+            console.log(res.data)
+        })
+    })
+
     return (
         <>
             <Header />
+            {/* <p>백엔드에서 가져온 데이터 : {hello}</p> */}
             <div className="box">
                 <div className="menu">
                     <div className="menuBtn on">
@@ -171,28 +184,27 @@ function ResvCreate() {
                         {
                                 TimeList.map((item, idx) => (
                                 t[diff/(1000 * 60 * 60 * 24)][idx]===0 ?
-                                <Grid item key={idx}>
+                                <Grid item key={item+idx}>
                                     <label
                                         className="timeBtn"
                                     >
                                         <input 
                                             type="checkbox" 
                                             name="time"
-                                            key={idx} 
                                             onChange={(e) => {
                                                 onTimeChange(e.target);
                                                 setTime(idx);
                                             }}
                                         />
-                                        <span key={idx}>{TimeList[idx]}</span>
+                                        <span>{TimeList[idx]}</span>
                                     </label> 
                                 </Grid> :
-                                <Grid item key={idx}>
+                                <Grid item key={item+idx}>
                                 <label
                                     className="timeBtn"
                                 >
-                                    <input type="checkbox" name="time" key={idx} disabled />
-                                    <span key={idx}>{TimeList[idx]}</span>
+                                    <input type="checkbox" name="time" disabled />
+                                    <span>{TimeList[idx]}</span>
                                 </label> 
                             </Grid>
                         ))}
@@ -234,7 +246,7 @@ function ResvCreate() {
                         <Grid container rowSpacing={2} columnSpacing={1}>
                         {
                             MenuList.map((item, idx) => (
-                                <Grid item key={idx}>
+                                <Grid item key={item+idx}>
                                     <Stack>
                                         <span style={{fontSize: '14px', marginBottom: '5px'}}>{item[0]}</span>
                                         <span style={{fontSize: '12px', marginBottom: '10px'}}>{item[1].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}원</span>

@@ -2,16 +2,29 @@ package com.JUMO.reservation.service
 
 import com.JUMO.reservation.repository.*
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 import java.io.IOException
 
 
 @RestController
 @RequestMapping("")
 class UserController {
+
+    @GetMapping("/api/hello")
+    fun test(): String? {
+        return "Hello, world!"
+    }
+
+    @PostMapping("/api/hellopost")
+    @Throws(IOException::class)
+    fun postTest(@RequestBody vo: VO): String {
+        if(vo.data == null) {
+            println("null값 전달됨");
+        } else {
+            println("성공!" + vo.data);
+        }
+        return "통신 성공"
+    }
 
     @Autowired
     private val menuRepository: MenuRepository? = null

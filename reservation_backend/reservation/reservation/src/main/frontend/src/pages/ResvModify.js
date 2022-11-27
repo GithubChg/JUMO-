@@ -186,7 +186,7 @@ function ResvModify(props) {
                         {
                                 TimeList.map((item, idx) => (
                                 idx===time ?
-                                <Grid item key={idx}>
+                                <Grid item key={item+idx}>
                                     <label
                                         className="timeBtn"
                                     >
@@ -194,38 +194,36 @@ function ResvModify(props) {
                                             type="checkbox" 
                                             checked={true}
                                             name="time"
-                                            key={idx} 
                                             onChange={(e) => {
                                                 onTimeChange(e.target);
                                                 setTime(idx);
                                             }}
                                         />
-                                        <span key={idx}>{TimeList[idx]}</span>
+                                        <span>{TimeList[idx]}</span>
                                     </label> 
                                 </Grid> :
                                 t[diff/(1000 * 60 * 60 * 24)][idx]===0 ?
-                                <Grid item key={idx}>
+                                <Grid item key={item+idx}>
                                     <label
                                         className="timeBtn"
                                     >
                                         <input 
                                             type="checkbox" 
                                             name="time"
-                                            key={idx} 
                                             onChange={(e) => {
                                                 onTimeChange(e.target);
                                                 setTime(idx);
                                             }}
                                         />
-                                        <span key={idx}>{TimeList[idx]}</span>
+                                        <span>{TimeList[idx]}</span>
                                     </label> 
                                 </Grid> :
-                                <Grid item key={idx}>
+                                <Grid item key={item+idx}>
                                 <label
                                     className="timeBtn"
                                 >
-                                    <input type="checkbox" name="time" key={idx} disabled />
-                                    <span key={idx}>{TimeList[idx]}</span>
+                                    <input type="checkbox" name="time" disabled />
+                                    <span>{TimeList[idx]}</span>
                                 </label> 
                             </Grid>
                         ))}
@@ -267,7 +265,7 @@ function ResvModify(props) {
                         <Grid container rowSpacing={2} columnSpacing={1}>
                         {
                             MenuList.map((item, idx) => (
-                                <Grid item key={idx}>
+                                <Grid item key={item+idx}>
                                     <Stack>
                                         <span style={{fontSize: '14px', marginBottom: '5px'}}>{item[0]}</span>
                                         <span style={{fontSize: '12px', marginBottom: '10px'}}>{item[1].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}원</span>

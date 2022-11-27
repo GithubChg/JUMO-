@@ -15,7 +15,6 @@ function MResvView(props) {
     const columns = ['예약자명', '전화번호', '날짜/시간', '인원', '주문메뉴', '금액', '등록시간', '']
     const dataSet = [
         {
-            id: 0,
             name: '원규진',
             number: '010-1234-5678',
             date: '2022-11-27',
@@ -26,7 +25,6 @@ function MResvView(props) {
             resvTime: '09:50:31',
         },
         {
-            id: 1,
             name: '원규진',
             number: '010-5678-1234',
             date: '2022-11-27',
@@ -37,7 +35,6 @@ function MResvView(props) {
             resvTime: '09:50:31',
         },
         {
-            id: 2,
             name: '원규진',
             number: '010-3333-2222',
             date: '2022-11-27',
@@ -48,7 +45,6 @@ function MResvView(props) {
             resvTime: '09:50:31',
         },
         {
-            id: 3,
             name: '원규진',
             number: '010-1111-8888',
             date: '2022-11-27',
@@ -59,7 +55,6 @@ function MResvView(props) {
             resvTime: '09:50:31',
         },
         {
-            id: 4,
             name: '원규진',
             number: '010-3214-7345',
             date: '2022-11-27',
@@ -105,8 +100,8 @@ function MResvView(props) {
                             </tr>
                         </thead>
                         <tbody>
-                            {data.map(({id, name, number, date, time, people, menu, price, resvTime}, idx) => (
-                                <tr key={id}>
+                            {data.map(({name, number, date, time, people, menu, price, resvTime}, idx) => (
+                                <tr key={number}>
                                     <td width="80px">{name}</td>
                                     <td width="130px">{number}</td>
                                     <td width="200px">{date} ({TimeList[time]})</td>
@@ -140,7 +135,7 @@ function MResvView(props) {
                                             <IconButton onClick={() => {
                                                 if(window.confirm("예약을 정말 삭제하시겠습니까?")) {
                                                     alert("예약이 삭제되었습니다.")
-                                                    const newData = data.filter((d) => d.id !== id);
+                                                    const newData = data.filter((d) => d.number !== number);
                                                     setData(newData);
                                                 }
                                             }}>

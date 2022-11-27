@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
@@ -100,15 +100,31 @@ function ResvView() {
         );
     }
 
-    const date = '2022-11-27';
-    const time = 5;
-    const peopleCnt = 2;
-    const menuCnt = [1,2,3,0,0,0,0,0,0,0];
-    const price = 200000;
-    const name = '원규진';
-    const number = ['010', '1234', '5678']
-    const password = '1234';
-    const comment = '안녕하세요';
+    const [date, setDate] = useState('2022-11-29');
+    const [time, setTime] = useState(5);
+    const [peopleCnt, setPeopleCnt] = useState(2);
+    const [menuCnt, setMenuCnt] = useState([1,2,3,0,0,0,0,0,0,0]);
+    const [price, setPrice] = useState(200000);
+    const [name, setName] = useState('원규진');
+    const [number, setNumber] = useState(['010', '1234', '5678'])
+    const [password, setPassword] = useState('1234');
+    const [comment, setComment] = useState('안녕하세요');
+
+    useEffect(() => {
+        fetch("/readReservation")
+        .then((res) => res.json())
+        .then((data) => {
+            setDate(data.date)
+            // setTime()
+            setPeopleCnt(data.numPeople)
+            // setMenuCnt()
+            setPrice(data.total)
+            setName(data.userName)
+            setNumber([data.phoneNumber.slice(0,3), data.phoneNumber.slice(3,7), data.phoneNumber.slice(7,11)])
+            setPassword(data.password)
+            // setComment()
+        })
+    })
 
     // 변경 버튼 클릭
     const navigate = useNavigate();
