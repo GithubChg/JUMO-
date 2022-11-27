@@ -53,11 +53,11 @@ function MTimeCheck() {
                             
                             <Stack direction="row" alignItems="center" className="subcheck">
                                 <div className="subtitle">시작시간</div>
-                                <div className="contentcheck">{starttime}{startminute}</div>
+                                <div className="contentcheck">{starttime} : {startminute===0 ? "00": "30"}</div>
                             </Stack>
                             <Stack direction="row" alignItems="center" className="subcheck">
                                 <div className="subtitle">종료시간</div>
-                                <div className="contentcheck">{endtime}{endminute}</div>
+                                <div className="contentcheck">{endtime} : {endminute===0 ? "00": "30"}</div>
                             </Stack>
                      
                         </div>

@@ -87,10 +87,10 @@ function MResvView(props) {
                         </div>
                         <div className="menuGroup">매장 관리</div>
                         <div className="menuBtn">
-                            <Link to="/manager/resvview" className="menuLink">운영 시간 변경</Link>
+                            <Link to="/manager/mtimemodify" className="menuLink">운영 시간 변경</Link>
                         </div>
                         <div className="menuBtn">
-                            <Link to="/manager/resvview" className="menuLink">메뉴 조회/변경</Link>
+                            <Link to="/manager/mmenuview" className="menuLink">메뉴 조회/변경</Link>
                         </div>
                     </div>
                     <Logout />

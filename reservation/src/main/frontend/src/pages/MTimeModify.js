@@ -33,7 +33,12 @@ function MTimeModify(props) {
 
 
     const onClickCreate = () => {
-        navigate("/manager/mtimecheck");
+        navigate("/manager/mtimecheck", {state: {
+            starttime: starttime,
+            startminute: startminute,
+            endtime: endtime,
+            endminute: endminute,
+        }});
     };
 
     return (
