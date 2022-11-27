@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import java.io.IOException
 
+//login
 //createReservation ()
 //readReservation
 //updateReservation
@@ -26,6 +27,32 @@ class ManagerController {
 
     @Autowired
     private val restaurantRepository: RestaurantRepository? = null
+
+    @Autowired
+    private val managerRepository: ManagerRepository?= null
+
+    @PostMapping("/login")
+    @Throws(IOException::class)
+    fun login(@RequestBody manager : Manager): String {
+        var returnJSON = ""
+        var id = manager.managerId
+        var password = manager.managerPw
+        var admin = managerRepository!!.findAll()
+        var verify = false
+
+        for(admins in admin){
+            if((admins.managerId == id) && (admins.managerPw == password))
+                verify = true
+        }
+
+        if(verify){
+            returnJSON = "login_success"
+        }
+        else{
+            returnJSON = "login_fail"
+        }
+        return returnJSON
+    }
 
     @PostMapping("/createMenu")
     @Throws(IOException::class)

@@ -4,4 +4,8 @@
   <component name="FrameworkDetectionExcludesConfiguration">
     <file type="web" url="file://$PROJECT_DIR$/reservation/reservation" />
   </component>
+  <component name="ProjectRootManager" version="2" default="true" />
+  <component name="ProjectType">
+    <option name="id" value="jpab" />
+  </component>
 </project>

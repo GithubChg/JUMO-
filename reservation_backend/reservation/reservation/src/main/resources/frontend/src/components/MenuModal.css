@@ -1,0 +1,56 @@
+.imageBtn {
+    position: absolute;
+    width: 120px;
+    height: 80px;
+    border-radius: 6px;
+    margin-top: 40px;
+    margin-bottom: 10px;
+}
+
+.imageBtn:hover {
+    cursor: pointer;
+    background-color: white;
+    opacity: 0.4;
+}
+
+.modal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 700px;
+    height: 450px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 10px 50px rgb(70, 70, 70);
+    padding: 20px 30px 20px 30px;
+}
+
+.img {
+    width: 400px;
+    height: 350px;
+    border-radius: 5px;
+    margin-top: 40px;
+    margin-bottom: 10px;
+    object-fit: cover;
+}
+
+.name {
+    margin-top: 45px;
+    font-family: 'NanumSquareB', sans-serif;
+    font-size: 26px;
+}
+
+.price {
+    margin-top: 10px;
+    font-family: 'NanumSquareB', sans-serif;
+    font-size: 18px;
+}
+
+.detail {
+    margin-top: 30px;
+    font-family: 'NanumSquareR', sans-serif;
+    font-size: 16px;
+}
