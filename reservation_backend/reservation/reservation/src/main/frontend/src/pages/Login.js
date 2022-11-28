@@ -28,7 +28,7 @@ function Login() {
                              }).then((res) => {
                                  console.log(res)
 
-            if(res.data !== "NULL") {
+            if(res.data == "login_success") {
                 alert('확인되었습니다 :)')
                 sessionStorage.setItem('userId', id)
                 console.log(sessionStorage.getItem('userId'))
