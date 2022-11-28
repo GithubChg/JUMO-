@@ -9,6 +9,10 @@ axios({
     baseUrl: "http://localhost:8080"
 }).then((res) => {
     const data = res.data.reservationList
+    for (var k = 0; k<ReservedTime.length; k++) {
+        ReservedTime[k] = new Array(TimeList.length).fill(0);
+    }
+    
     const ls = []
     for (var i=0; i<data.length; i++) {
         ls.push({
@@ -18,18 +22,17 @@ axios({
     }
     console.log(ls)
 
-    for (var k = 0; k<ReservedTime.length; k++) {
-        ReservedTime[k] = new Array(TimeList.length).fill(0);
+    if (data.length!==0) {
+        const dateNow = new Date();
+        const today = dateNow.getFullYear()+"-"+(dateNow.getMonth()+1)+"-"+dateNow.getDate();
+        const now = new Date(today.slice(0,4), today.slice(5,7), today.slice(8,10));
+        for (var j=0; j<ls.length; j++) {
+            const selected = new Date(ls[j].date.slice(0,4), ls[j].date.slice(5,7), ls[j].date.slice(8,10))
+            const diff = selected.getTime() - now.getTime()
+            ReservedTime[diff/(1000 * 60 * 60 * 24)][ls[j].time] = 1
+        }
     }
 
-    const dateNow = new Date();
-    const today = dateNow.getFullYear()+"-"+(dateNow.getMonth()+1)+"-"+dateNow.getDate();
-    const now = new Date(today.slice(0,4), today.slice(5,7), today.slice(8,10));
-    for (var j=0; j<ls.length; j++) {
-        const selected = new Date(ls[j].date.slice(0,4), ls[j].date.slice(5,7), ls[j].date.slice(8,10))
-        const diff = selected.getTime() - now.getTime()
-        ReservedTime[diff/(1000 * 60 * 60 * 24)][ls[j].time] = 1
-    }
     console.log(ReservedTime)
 })
 
