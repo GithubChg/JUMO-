@@ -6,49 +6,49 @@ function MenuPieChart(props) {
         {
           "id": "메뉴1",
           "label": "메뉴1",
-          "value": 261,
+          "value": props.menuNumList["메뉴1"],
           "color": "hsl(240, 70%, 50%)"
         },
         {
           "id": "메뉴2",
           "label": "메뉴2",
-          "value": 575,
+          "value": props.menuNumList["메뉴2"],
           "color": "hsl(150, 70%, 50%)"
         },
         {
           "id": "메뉴3",
           "label": "메뉴3",
-          "value": 451,
+          "value": props.menuNumList["메뉴3"],
           "color": "hsl(30, 70%, 50%)"
         },
         {
           "id": "메뉴4",
           "label": "메뉴4",
-          "value": 293,
+          "value": props.menuNumList["메뉴4"],
           "color": "hsl(232, 70%, 50%)"
         },
         {
           "id": "메뉴5",
           "label": "메뉴5",
-          "value": 161,
+          "value": props.menuNumList["메뉴5"],
           "color": "hsl(359, 70%, 50%)"
         },
         {
           "id": "메뉴6",
           "label": "메뉴6",
-          "value": 21,
+          "value": props.menuNumList["메뉴6"],
           "color": "hsl(359, 70%, 50%)"
         },
         {
           "id": "메뉴7",
           "label": "메뉴7",
-          "value": 75,
+          "value": props.menuNumList["메뉴7"],
           "color": "hsl(121, 70%, 50%)"
         },
         {
           "id": "메뉴8",
           "label": "메뉴8",
-          "value": 191,
+          "value": props.menuNumList["메뉴8"],
           "color": "hsl(290, 70%, 50%)"
         },
     ];
