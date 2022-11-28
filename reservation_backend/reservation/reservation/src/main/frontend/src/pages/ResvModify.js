@@ -12,6 +12,7 @@ import MenuList from "../data/MenuList.js";
 import MenuModal from '../components/MenuModal';
 import "./css/styles.css";
 import axios from 'axios';
+import ReservedTime from '../data/ReservedTime';
 
 // 지난 예약은 조회가 불가능하게, 혹은 변경이 불가능하게 설정
 
@@ -31,7 +32,7 @@ function ResvModify(props) {
 
     // 예약 날짜 설정
     const dateNow = new Date();
-    const today = dateNow.toISOString().slice(0, 10);
+    const today = dateNow.getFullYear()+"-"+(dateNow.getMonth()+1)+"-"+dateNow.getDate();
     const [date, setDate] = useState(_date);
     const endDate = new Date(dateNow.getFullYear(), dateNow.getMonth(), dateNow.getDate()+7).toISOString().slice(0, 10);
     
@@ -40,15 +41,6 @@ function ResvModify(props) {
     const now = new Date(today.slice(0,4), today.slice(5,7), today.slice(8,10));
     const diff =  selected.getTime() - now.getTime();
 
-    const t = [
-        [0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0],
-        [1, 0, 0, 0, 0, 1, 0, 0, 1, 1, 1, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    ];
     const [time, setTime] = useState(_time);
 
     // 예약 인원 설정
@@ -130,7 +122,7 @@ function ResvModify(props) {
                             console.log(res)
                         })
                         // 예약 확인 페이지로
-                        alert("예약이 완료되었습니다!")
+                        alert("예약이 변경되었습니다!")
                         navigate("/resvcheck", {state: {
                             date: date,
                             time: time,
@@ -220,7 +212,7 @@ function ResvModify(props) {
                                         <span>{TimeList[idx]}</span>
                                     </label> 
                                 </Grid> :
-                                t[diff/(1000 * 60 * 60 * 24)][idx]===0 ?
+                                ReservedTime[diff/(1000 * 60 * 60 * 24)][idx]===0 ?
                                 <Grid item key={item+idx}>
                                     <label
                                         className="timeBtn"

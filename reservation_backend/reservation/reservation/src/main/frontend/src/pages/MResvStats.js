@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import {Stack, Grid} from '@mui/material';
@@ -6,8 +6,27 @@ import "./css/styles.css";
 import MenuPieChart from '../components/MenuPieChart';
 import SalesLineChart from '../components/SalesLineChart';
 import Logout from '../components/Logout';
+import axios from 'axios';
 
 function MResvStats(props) {
+    const [menuNumList, setMenuNumList] = useState([])
+    useEffect(() => {
+        axios({
+            url: "/api/readStatistic",
+            method: 'post',
+            baseUrl: "http://localhost:8080"
+        }).then((res) => {
+            const d = res.data.readStatistic
+            console.log(d)
+            var ls = {}
+            for(var i=0; i<d.length; i++) {
+                ls[d[i].menuName] = d[i].num
+            }
+            setMenuNumList(ls)
+            console.log(ls)
+        })
+    }, [])
+
     return (
         <>
             <Header isManager={true} />
@@ -35,12 +54,12 @@ function MResvStats(props) {
                     <Grid container>
                         <Grid item xs={6} style={{height: '550px'}}>
                             <div className="guide" style={{color:'black'}}>메뉴별 점유율</div>
-                            <MenuPieChart />
+                            <MenuPieChart menuNumList={menuNumList} />
                         </Grid>
-                        <Grid item xs={6} style={{height: '550px'}}>
+                        {/* <Grid item xs={6} style={{height: '550px'}}>
                             <div className="guide" style={{color:'black'}}>누적 예약 금액</div>
                             <SalesLineChart />
-                        </Grid>
+                        </Grid> */}
                     </Grid>
                 </div>
             </div>

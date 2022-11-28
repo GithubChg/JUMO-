@@ -54,7 +54,7 @@ class ManagerController {
         return returnJSON
     }
 
-    @PostMapping("/createMenu")
+    @PostMapping("/api/createMenu")
     @Throws(IOException::class)
     fun createMenu(@RequestBody vo: VO): String {
         var returnJSON = ""
@@ -86,7 +86,7 @@ class ManagerController {
         return returnJSON
     }
 
-    @PostMapping("/readMenu")
+    @PostMapping("/api/readMenu")
     @Throws(IOException::class)
     fun readMenu(@RequestBody vo: VO): String{
         var returnJSON = ""
@@ -185,7 +185,7 @@ class ManagerController {
         return returnJSON
     }
 
-    @PostMapping("/readStatistic")
+    @PostMapping("/api/readStatistic")
     @Throws(IOException::class)
     fun readStatistic(): String{
         var retunJSON = "{\"readStatistic\" : ["
@@ -221,7 +221,7 @@ class ManagerController {
     }
 
 
-    @PostMapping("/initializeRestaurant")
+    @PostMapping("/api/initializeRestaurant")
     @Throws(IOException::class)
     fun initializeRestaurant(): String{
         var restaurant= Restaurant()
@@ -233,7 +233,7 @@ class ManagerController {
         var returnJSON="initializeRestaurant_success"
         return returnJSON
     }
-    @PostMapping("/updateRestaurant")
+    @PostMapping("/api/updateRestaurant")
     @Throws(IOException::class)
     fun updateRestaurant(@RequestBody vo: VO): String{
         var returnJSON=""
