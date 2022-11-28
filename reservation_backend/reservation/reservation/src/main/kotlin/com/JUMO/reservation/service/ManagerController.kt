@@ -162,24 +162,24 @@ class ManagerController {
         return returnJSON
     }
 
-    @PostMapping("/readMenuList")
+    @PostMapping("/api/readMenuList")
     @Throws(IOException::class)
     fun readMenuList(): String{
-        var retunJSON = "{\"menuList\" : ["
+        var returnJSON = "{\"menuList\" : ["
         val allMenu= menuRepository!!.findAll()
 
         for (menus in allMenu) {
-                retunJSON += "{\"menuName\" : \"" + menus.menuName + "\","
-                retunJSON+="\"price\" : \""+menus.price+"\","
-                retunJSON+="\"description\" : \""+menus.description+"\","
-                retunJSON+="\"allergy\" : \""+menus.allergy+"\","
-                retunJSON+="\"stock\" : \""+menus.stock+"\","
-                retunJSON += "\"imageLocation\" : \"" + menus.imageLocation + "\"},"
+                returnJSON += "{\"menuName\" : \"" + menus.menuName + "\","
+                returnJSON+="\"price\" : \""+menus.price+"\","
+                returnJSON+="\"description\" : \""+menus.description+"\","
+                returnJSON+="\"allergy\" : \""+menus.allergy+"\","
+                returnJSON+="\"stock\" : \""+menus.stock+"\","
+                returnJSON += "\"imageLocation\" : \"" + menus.imageLocation + "\"},"
 
         }
-        retunJSON = retunJSON.substring(0, retunJSON.length - 1)
-        retunJSON += "]}"
-        return retunJSON
+        returnJSON = returnJSON.substring(0, returnJSON.length - 1)
+        returnJSON += "]}"
+        return returnJSON
     }
 
     @PostMapping("/readStatistic")
