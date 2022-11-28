@@ -13,8 +13,16 @@ import MenuModal from '../components/MenuModal';
 import "./css/styles.css";
 import axios from 'axios';
 import ReservedTime from '../data/ReservedTime';
+import Spinner from '../components/Spinner';
 
 function ResvCreate() {
+    const [loading, setLoading] = useState(true)
+    useEffect(() => {
+        setTimeout(() => {
+            setLoading(false)
+        }, 2000);
+    })
+
     // 예약 날짜 설정
     const dateNow = new Date();
     const today = dateNow.getFullYear()+"-"+(dateNow.getMonth()+1)+"-"+dateNow.getDate();
@@ -161,7 +169,9 @@ function ResvCreate() {
                         </Link>
                     </div>
                 </div>
-                <div className="content">
+                { loading
+                ? <Spinner />
+                : <div className="content">
                     <div className="guide">등록할 예약 정보를 입력하세요</div>
                     <div className="title">예약 정보</div>
                     <Stack direction="row" alignItems="center" className="subcontent">
@@ -391,7 +401,7 @@ function ResvCreate() {
                     <div style={{marginLeft: '45%', marginTop: '50px', marginBottom: '50px'}}>
                         <button className="btn" onClick={onClickCreate}>등록</button>
                     </div>
-                </div>
+                </div> }
             </div>
         </>
     );
