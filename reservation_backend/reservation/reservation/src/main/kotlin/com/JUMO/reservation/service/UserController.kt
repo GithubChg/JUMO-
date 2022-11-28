@@ -148,7 +148,7 @@ class UserController {
         return returnJSON
     }
 
-    @PostMapping("/deleteReservation")
+    @PostMapping("/api/deleteReservation")
     @Throws(IOException::class)
     fun deleteReservation(@RequestBody vo: VO): String{
         var returnJSON = ""

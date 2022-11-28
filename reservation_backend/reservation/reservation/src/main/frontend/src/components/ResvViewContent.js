@@ -7,14 +7,14 @@ import MenuList from "../data/MenuList.js";
 import axios from 'axios';
 
 function ResvViewContent(props) {
-    const [date, setDate] = useState('2022-11-29');
-    const [time, setTime] = useState(5);
-    const [peopleCnt, setPeopleCnt] = useState(2);
-    const [menuCnt, setMenuCnt] = useState([1,2,3,0,0,0,0,0,0,0]);
-    const [price, setPrice] = useState(200000);
+    const [date, setDate] = useState('');
+    const [time, setTime] = useState(0);
+    const [peopleCnt, setPeopleCnt] = useState(0);
+    const [menuCnt, setMenuCnt] = useState([]);
+    const [price, setPrice] = useState(0);
     const [name, setName] = useState('원규진');
-    const [number, setNumber] = useState(['010', '1234', '5678'])
-    const [password, setPassword] = useState('1234');
+    const [number, setNumber] = useState(['', '', ''])
+    const [password, setPassword] = useState('');
     const [comment, setComment] = useState('');
 
     useEffect(() => {
@@ -37,10 +37,11 @@ function ResvViewContent(props) {
 
             const resvList = res.data.data.reserveMenu.split(",")
             console.log(resvList)
-            const cnt = Array(MenuList.length).fill(0)
+            const cnt = new Array(MenuList.length).fill(0)
             for(var i=0; i<MenuList.length; i++){
                 for(var j=0; j<resvList.length; j++) {
                     if(MenuList[i][0]===resvList[j]) {
+                        console.log(MenuList[i][0] , resvList[j])
                         cnt[i] += 1
                     }
                 }

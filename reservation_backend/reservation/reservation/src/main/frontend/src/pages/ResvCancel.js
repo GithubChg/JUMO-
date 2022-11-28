@@ -3,9 +3,12 @@ import { useNavigate, Link } from 'react-router-dom';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import Header from '../components/Header';
+import ResvCancelContent from '../components/ResvCancelContent';
+import axios from 'axios';
 
 function ResvCancel() {
     const [auth, setAuth] = useState(false);
+    const [id, setId] = useState('');
     
     const Menu = () => {
         return (
@@ -50,13 +53,27 @@ function ResvCancel() {
                 setEmptyName(false)
                 setEmptyPassword(false)
                 setEmptyChecked(false)
-                if(name==='원규진'&&password==='1234') {
-                    alert('확인되었습니다. 예약을 취소합니다.')
-                    setAuth(true);
-                }
-                else {
-                    alert('이름 또는 비밀번호가 잘못되었습니다.')
-                }
+                axios({
+                    url: "/api/verifyUser",
+                    method: 'post',
+                    data: {
+                        userName: name,
+                        password: password,
+                    },
+                    baseUrl: "http://localhost:8080"
+                }).then((res) => {
+                    console.log(res.data)
+                    if(res.data!=="NULL") {
+                        setId(res.data)
+                        setAuth(true)
+                        alert('확인되었습니다. 예약을 취소합니다.')
+                    } else {
+                        setAuth(false)
+                        alert('이름 또는 비밀번호가 잘못되었습니다.')
+                    }
+                    setId(res.data)
+                    console.log({"auth":auth, "res":res.data, "id":id})
+                })
             }
         };
 
@@ -70,7 +87,6 @@ function ResvCancel() {
                         <Stack direction="row" alignItems="center" className="subcontent" mt={5}>
                             <div className="subtitle">이름</div>
                             <TextField
-                                onError={emptyName} 
                                 value={name}
                                 onChange={(e) => setName(e.target.value)}
                                 label="" 
@@ -84,7 +100,6 @@ function ResvCancel() {
                         <Stack direction="row" alignItems="center" className="subcontent" mt={2}>
                             <div className="subtitle">비밀번호</div>
                             <TextField 
-                                onError={emptyPassword} 
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                                 type="password" 
@@ -103,7 +118,6 @@ function ResvCancel() {
                                 name="check"
                                 value={checked}
                                 onChange={(e) => setChecked(e.target.value)}
-                                onError={emptyCheck}
                                 style={{width: '20px', height: '20px'}} />
                         </Stack>
                         {emptyCheck ? <span className="error" style={{margin: '0'}}>*체크 값은 필수입니다</span> : null}
@@ -120,13 +134,7 @@ function ResvCancel() {
         auth===false ?
         <UserAuth /> :
         <>
-            <Header />
-            <div className="box">
-                <Menu />
-                <div className="content">
-                    <div className="guide">예약이 취소되었습니다 :(</div>
-                </div>
-            </div>
+            <ResvCancelContent id={id} />
         </>
     );
 }

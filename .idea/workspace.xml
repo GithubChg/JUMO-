@@ -6,7 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="fda5cfa5-f7c3-42b0-9405-4cc344f5dc3d" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/reservation_backend/reservation/reservation/src/main/frontend/src/pages/ResvView.js" beforeDir="false" afterPath="$PROJECT_DIR$/reservation_backend/reservation/reservation/src/main/frontend/src/pages/ResvView.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/reservation_backend/reservation/reservation/src/main/frontend/src/components/ResvViewContent.js" beforeDir="false" afterPath="$PROJECT_DIR$/reservation_backend/reservation/reservation/src/main/frontend/src/components/ResvViewContent.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/reservation_backend/reservation/reservation/src/main/frontend/src/data/MenuList.js" beforeDir="false" afterPath="$PROJECT_DIR$/reservation_backend/reservation/reservation/src/main/frontend/src/data/MenuList.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/reservation_backend/reservation/reservation/src/main/frontend/src/pages/ResvCancel.js" beforeDir="false" afterPath="$PROJECT_DIR$/reservation_backend/reservation/reservation/src/main/frontend/src/pages/ResvCancel.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/reservation_backend/reservation/reservation/src/main/kotlin/com/JUMO/reservation/service/UserController.kt" beforeDir="false" afterPath="$PROJECT_DIR$/reservation_backend/reservation/reservation/src/main/kotlin/com/JUMO/reservation/service/UserController.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -110,7 +112,7 @@
       <option name="presentableId" value="Default" />
       <updated>1669547525153</updated>
       <workItem from="1669547529264" duration="891000" />
-      <workItem from="1669551037932" duration="17624000" />
+      <workItem from="1669551037932" duration="19612000" />
     </task>
     <servers />
   </component>
