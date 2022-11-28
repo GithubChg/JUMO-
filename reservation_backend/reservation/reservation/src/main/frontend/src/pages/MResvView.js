@@ -12,9 +12,9 @@ import axios from 'axios';
 
 function MResvView(props) {
     const navigate = useNavigate();
-    var reservationList = [];
+    const [reservationList, setReservationList] = useState([]);
 
-    const columns = ['예약자명', '전화번호', '날짜/시간', '인원', '주문메뉴', '금액', '등록시간', '']
+    const columns = ['예약자명', '전화번호', '날짜/시간', '인원', '주문메뉴', '금액', '']
     axios({
         url: "/api/readReservationList",
         method: 'post',
@@ -22,20 +22,34 @@ function MResvView(props) {
     }).then((res) => {
         console.log("통신 성공")
         const data = res.data.reservationList
-        console.log(data)
-        for(var r in data){
-            reservationList.push([
-                data[r].userName,
-                data[r].phoneNumber,
-                data[r].reservationDate,
-                data[r].numPeople,
-                data[r].reserveMenu,
-                data[r].total,
+        console.log({"data": data})
+        const ls = []
+        for(var i=0; i<data.length; i++){
+            const resvList = data[i].reserveMenu.split(",")
+            const cnt = new Array(MenuList.length).fill(0)
+            for(var k=0; k<MenuList.length; k++){
+                for(var j=0; j<resvList.length; j++) {
+                    if(MenuList[k][0]===resvList[j]) {
+                        cnt[k] += 1
+                    }
+                }
+            }
+            console.log(cnt)
+            
+            ls.push({
+                name: data[i].userName,
+                number: data[i].phoneNumber,
+                date: data[i].reservationDate.substr(0,10),
+                time: TimeList.indexOf(data[i].reservationDate.substr(11)),
+                people: data[i].numPeople,
+                menu: cnt,
+                price: data[i].total,
 
-            ]);
-        }
+        });}
+        console.log(ls)
+        setReservationList(ls)
         console.log({"ReservationList": reservationList})
-    })
+    }, [])
 
 
     return (
@@ -71,22 +85,22 @@ function MResvView(props) {
                             </tr>
                         </thead>
                         <tbody>
-                            {reservationList.map(({id, name, number, date, time, people, menu, price, resvTime}, idx) => (
-                                <tr key={id}>
-                                    <td width="80px">{name}</td>
-                                    <td width="130px">{number}</td>
-                                    <td width="200px">{date} ({TimeList[time]})</td>
-                                    <td width="40px">{people}</td>
-                                    <td width="200px">
+                            {reservationList.map((item, idx) => (
+                                <tr key={item.name+item.number}>
+                                    <td width="80px">{item.name}</td>
+                                    <td width="130px">{item.number.substr(0,3)+"-"+item.number.substr(3,4)+"-"+item.number.substr(7,4)}</td>
+                                    <td width="200px">{item.date} ({TimeList[item.time]})</td>
+                                    <td width="40px">{item.people}</td>
+                                    <td width="300px">
                                     {
-                                        MenuList.map((item, idx) => (
-                                            menu[idx]>0 ?
-                                            <span>{item[0]}({menu[idx]}개) </span>
+                                        MenuList.map((m, idx) => (
+                                            item.menu[idx]>0 ?
+                                            <span>{m[0]}({item.menu[idx]}개) </span>
                                             : null
-                                    ))}
+                                        ))
+                                    }
                                     </td>
-                                    <td width="80px">{price}</td>
-                                    <td width="80px">{resvTime}</td>
+                                    <td width="80px">{item.price}</td>
                                     <td width="50px">
                                         <Stack direction="row">
                                             <IconButton onClick={() => {
@@ -106,8 +120,8 @@ function MResvView(props) {
                                             <IconButton onClick={() => {
                                                 if(window.confirm("예약을 정말 삭제하시겠습니까?")) {
                                                     alert("예약이 삭제되었습니다.")
-                                                    const newData = reservationList.filter((d) => d.id !== id);
-                                                    setData(newData);
+                                                    const newData = reservationList.filter((d) => d.number !== item.number);
+                                                    // setData(newData);
                                                 }
                                             }}>
                                                 <DeleteForeverIcon color="error" />
