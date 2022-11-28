@@ -31,7 +31,7 @@ class ManagerController {
     @Autowired
     private val managerRepository: ManagerRepository?= null
 
-    @PostMapping("/login")
+    @PostMapping("/api/login")
     @Throws(IOException::class)
     fun login(@RequestBody manager : Manager): String {
         var returnJSON = ""

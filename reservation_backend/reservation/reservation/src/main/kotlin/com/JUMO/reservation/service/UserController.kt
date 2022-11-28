@@ -101,7 +101,7 @@ class UserController {
         return returnJSON
     }
 
-    @PostMapping("/updateReservation")
+    @PostMapping("/api/updateReservation")
     @Throws(IOException::class)
     fun updateReservation(@RequestBody vo: VO): String{
         var returnJSON = ""
@@ -111,20 +111,21 @@ class UserController {
         var reservationDate=vo.reservationDate
         var reserveMenu=vo.reserveMenu
         var numPeople=vo.numPeople
-        var total=0
+        var total= vo.total
 
         //같은 전화번호의 예약이 있는지 확인하고 있으면 수정
         var duplicated=reservationRepository!!.findById(phoneNumber!!)
 
+
         if(duplicated.isPresent()) {
             var targetReservation= duplicated.get()
-            var menuList=reserveMenu!!.split(",")
+//            var menuList=reserveMenu!!.split(",")
 
-            //가격 계산
-            for(i in menuList){
-                println(i)
-                total+=menuRepository!!.findById(i).get().price!!
-            }
+//            //가격 계산
+//            for(i in menuList){
+//                println(i)
+//                total+=menuRepository!!.findById(i).get().price!!
+//            }
 
             targetReservation.phoneNumber=vo.phoneNumber
             targetReservation.userName=vo.userName
@@ -133,6 +134,7 @@ class UserController {
             targetReservation.total=total
             targetReservation.reserveMenu=reserveMenu
             targetReservation.numPeople=numPeople
+
 
 
             reservationRepository!!.save(targetReservation)
@@ -167,7 +169,7 @@ class UserController {
         return returnJSON
     }
 
-    @PostMapping("/readReservationList")
+    @PostMapping("/api/readReservationList")
     @Throws(IOException::class)
     fun readReservationList(): String{
         var retunJSON = "{\"reservationList\" : ["

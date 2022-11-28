@@ -11,6 +11,7 @@ import TimeList from "../data/TimeList.js";
 import MenuList from "../data/MenuList.js";
 import MenuModal from '../components/MenuModal';
 import "./css/styles.css";
+import axios from 'axios';
 
 // 지난 예약은 조회가 불가능하게, 혹은 변경이 불가능하게 설정
 
@@ -89,6 +90,24 @@ function ResvModify(props) {
     // 등록 버튼 클릭, 데이터 저장하고 파라미터 보내기
     const navigate = useNavigate();
     const onClickModify = () => {
+
+    const result = {};
+            result["reservationDate"] = date+" "+TimeList[time];
+            result["numPeople"] = peopleCnt;
+            result["total"] = price
+            result["userName"] = name
+            result["phoneNumber"] = number[0]+number[1]+number[2]
+            result["password"] = password
+            result["comment"] = comment
+
+            var menuList = ""
+            for (var i=0; i<menuCnt.length; i++) {
+                for (var j=0; j<menuCnt[i]; j++) {
+                    menuList += MenuList[i][0]+","
+                }
+            }
+            result["reserveMenu"] = menuList.slice(0,menuList.length-1)
+
         if (time===-1||price===0||name===''||number[0]===''||number[1]===''||number[2]===''||password==='') {
             if(time===-1) { setEmptyTime(true) } 
             else { setEmptyTime(false) }
@@ -101,29 +120,28 @@ function ResvModify(props) {
             if(password==='') { setEmptyPassword(true) } 
             else { setEmptyPassword(false) }
         } else {
-            // setData({
-            //     date: date,
-            //     time: time,
-            //     peopleCnt: peopleCnt,
-            //     menuCnt: menuCnt,
-            //     price: price,
-            //     name: name,
-            //     number: number,
-            //     password: password,
-            //     comment: comment,
-            // });
-            alert("예약이 완료되었습니다!")
-            navigate("/resvcheck", {state: {
-                date: date,
-                time: time,
-                peopleCnt: peopleCnt,
-                menuCnt: menuCnt,
-                price: price,
-                name: name,
-                number: number,
-                password: password,
-                comment: comment,
-            }});
+             console.log(result);
+                        axios({
+                            url: "/api/updateReservation",
+                            method: 'post',
+                            data: result,
+                            baseUrl: "http://localhost:8080"
+                        }).then((res) => {
+                            console.log(res)
+                        })
+                        // 예약 확인 페이지로
+                        alert("예약이 완료되었습니다!")
+                        navigate("/resvcheck", {state: {
+                            date: date,
+                            time: time,
+                            peopleCnt: peopleCnt,
+                            menuCnt: menuCnt,
+                            price: price,
+                            name: name,
+                            number: number,
+                            password: password,
+                            comment: comment,
+             }});
         }
     };
 

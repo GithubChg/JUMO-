@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
+import axios from 'axios';
 
 function Login() {
     const [id, setId] = useState('');
@@ -13,7 +14,21 @@ function Login() {
         if(id===''||pw==='') {
             alert('아이디 또는 비밀번호를 입력해주세요.')
         } else {
-            if(id==="jumo" && pw==="jumo") {
+        const result = {};
+
+                result["managerId"] = id
+                result["managerPw"] = pw
+
+                  console.log(result);
+                             axios({
+                                 url: "/api/login",
+                                 method: 'post',
+                                 data: result,
+                                 baseUrl: "http://localhost:8080"
+                             }).then((res) => {
+                                 console.log(res)
+
+            if(res.data !== "NULL") {
                 alert('확인되었습니다 :)')
                 sessionStorage.setItem('userId', id)
                 console.log(sessionStorage.getItem('userId'))
@@ -21,6 +36,7 @@ function Login() {
             } else {
                 alert('아이디 또는 비밀번호가 틀렸습니다.')
             }
+           })
         }
     }
 
