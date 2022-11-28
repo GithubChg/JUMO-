@@ -4,7 +4,7 @@ import Stack from '@mui/material/Stack'
 import Close from "@mui/icons-material/Close";
 import "./MenuModal.css";
 
-function MenuModal({name, price, detail, src}) {
+function MenuModal({name, price, detail, src, allergy}) {
     const [open, setOpen] = useState(false);
 
     const handleOpen = () => setOpen(true);
@@ -28,6 +28,9 @@ function MenuModal({name, price, detail, src}) {
                                 </div>
                                 <div className="detail">
                                     {detail}
+                                </div>
+                                <div className="detail" style={{color: 'red', fontSize: '13px'}}>
+                                    {"*"+allergy}
                                 </div>
                             </Stack>
                         </Stack>
