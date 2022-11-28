@@ -20,9 +20,7 @@ function MResvView(props) {
         method: 'post',
         baseUrl: "http://localhost:8080"
     }).then((res) => {
-        console.log("통신 성공")
         const data = res.data.reservationList
-        console.log({"data": data})
         const ls = []
         for(var i=0; i<data.length; i++){
             const resvList = data[i].reserveMenu.split(",")
@@ -33,12 +31,11 @@ function MResvView(props) {
                         cnt[k] += 1
                     }
                 }
-            }
-            console.log(cnt)
-            
+            }            
             ls.push({
                 name: data[i].userName,
                 number: data[i].phoneNumber,
+                password: data[i].password,
                 date: data[i].reservationDate.substr(0,10),
                 time: TimeList.indexOf(data[i].reservationDate.substr(11)),
                 people: data[i].numPeople,
@@ -46,9 +43,7 @@ function MResvView(props) {
                 price: data[i].total,
 
         });}
-        console.log(ls)
         setReservationList(ls)
-        console.log({"ReservationList": reservationList})
     }, [])
 
 
@@ -112,6 +107,9 @@ function MResvView(props) {
                                                         people: reservationList[idx].people,
                                                         menu: reservationList[idx].menu,
                                                         price: reservationList[idx].price,
+                                                        name: reservationList[idx].name,
+                                                        number: reservationList[idx].number,
+                                                        password: reservationList[idx].password
                                                     }})
                                                 }
                                             }}>
@@ -119,9 +117,15 @@ function MResvView(props) {
                                             </IconButton>
                                             <IconButton onClick={() => {
                                                 if(window.confirm("예약을 정말 삭제하시겠습니까?")) {
-                                                    alert("예약이 삭제되었습니다.")
-                                                    const newData = reservationList.filter((d) => d.number !== item.number);
-                                                    // setData(newData);
+                                                    axios({
+                                                        url: "/api/deleteReservation",
+                                                        method: 'post',
+                                                        data: { phoneNumber: reservationList[idx].number },
+                                                        baseUrl: "http://localhost:8080"
+                                                    }).then((res) => {
+                                                        console.log({"res" : res.data})
+                                                        alert("예약이 삭제되었습니다.")
+                                                    })
                                                 }
                                             }}>
                                                 <DeleteForeverIcon color="error" />

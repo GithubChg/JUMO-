@@ -7,6 +7,7 @@ import MenuList from "../data/MenuList.js";
 import MenuModal from '../components/MenuModal';
 import "./css/styles.css";
 import Logout from '../components/Logout';
+import axios from 'axios';
 
 function MResvModify(props) {
     // 파라미터 받아오기
@@ -16,13 +17,19 @@ function MResvModify(props) {
     const _time = location.state.time;
     const _peopleCnt = location.state.people;
     const _menuCnt = location.state.menu;
-    const _price = location.state.price;
+    const _price = Number(location.state.price);
+    const _name = location.state.name;
+    const _number = location.state.number;
+    const _password = location.state.password;
     console.log({
         date: _date,
         time: _time,
         peopleCnt: _peopleCnt,
         menuCnt: _menuCnt,
         price: _price,
+        name: _name,
+        number: _number,
+        password: _password,
     })
 
     // 예약 날짜 설정
@@ -61,41 +68,42 @@ function MResvModify(props) {
     const [emptyTime, setEmptyTime] = useState(false);
     const [emptyPrice, setEmptyPrice] = useState(false);
 
-    // 최종 데이터
-    // const [data, setData] = useState({
-    //     date: date,
-    //     time: time,
-    //     peopleCnt: peopleCnt,
-    //     menuCnt: menuCnt,
-    //     price: price,
-    //     name: name,
-    //     number: number,
-    //     password: password,
-    //     comment: comment,
-    // });
-
     // 등록 버튼 클릭, 데이터 저장하고 파라미터 보내기
     const navigate = useNavigate();
     const onClickModify = () => {
+        const result = {};
+        result["reservationDate"] = date+" "+TimeList[time];
+        result["numPeople"] = peopleCnt;
+        result["total"] = price
+        result["userName"] = _name
+        result["phoneNumber"] = _number
+        result["password"] = _password
+        var menuList = ""
+        for (var i=0; i<menuCnt.length; i++) {
+            for (var j=0; j<menuCnt[i]; j++) {
+                menuList += MenuList[i][0]+","
+            }
+        }
+        result["reserveMenu"] = menuList.slice(0,menuList.length-1)
+        
         if (time===-1||price===0) {
             if(time===-1) { setEmptyTime(true) } 
             else { setEmptyTime(false) }
             if(price===0) { setEmptyPrice(true) } 
             else { setEmptyPrice(false) }
         } else {
-            // setData({
-            //     date: date,
-            //     time: time,
-            //     peopleCnt: peopleCnt,
-            //     menuCnt: menuCnt,
-            //     price: price,
-            //     name: name,
-            //     number: number,
-            //     password: password,
-            //     comment: comment,
-            // });
-            alert("예약이 변경되었습니다! 예약 조회 화면으로 돌아갑니다.")
-            navigate("/manager/resvview");
+            console.log(result);
+            axios({
+                url: "/api/updateReservation",
+                method: 'post',
+                data: result,
+                baseUrl: "http://localhost:8080"
+            }).then((res) => {
+                console.log(res)
+                // 예약 확인 페이지로
+                alert("예약이 변경되었습니다! 예약 조회 화면으로 돌아갑니다.")
+                navigate("/manager/resvview");
+            })
         }
     };
 
