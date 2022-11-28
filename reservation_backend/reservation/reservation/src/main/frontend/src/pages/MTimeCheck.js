@@ -1,9 +1,7 @@
-import React, {useState} from 'react';
-import { useNavigate, Link, useLocation } from 'react-router-dom';
+import React from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import Header from '../components/Header';
-import {MenuItem, FormControl, Select, Stack, TextField, Grid} from '@mui/material';
-import TimeList from "../data/TimeList.js";
-import MenuList from "../data/MenuList.js";
+import {Stack} from '@mui/material';
 import "./css/styles.css";
 import Logout from '../components/Logout';
 
@@ -15,7 +13,6 @@ function MTimeCheck() {
     const startminute = location.state.startminute;
     const endtime = location.state.endtime;
     const endminute = location.state.endminute;
-
 
     return (
         <>
@@ -40,24 +37,18 @@ function MTimeCheck() {
                     </div>
                     <Logout />
                 </Stack>
-
-
-
                 <div className="content">
                     <div className="guide">운영 시간이 변경되었습니다!</div>
                     <Stack direction="row">
                         <div style={{minWidth: '500px'}}>
-        
-
                             <div style={{height: 10}}></div>
-                            
                             <Stack direction="row" alignItems="center" className="subcheck">
                                 <div className="subtitle">시작시간</div>
-                                <div className="contentcheck">{starttime} : {startminute===0 ? "00": "30"}</div>
+                                <div className="contentcheck">{starttime} : {startminute}</div>
                             </Stack>
                             <Stack direction="row" alignItems="center" className="subcheck">
                                 <div className="subtitle">종료시간</div>
-                                <div className="contentcheck">{endtime} : {endminute===0 ? "00": "30"}</div>
+                                <div className="contentcheck">{endtime} : {endminute}</div>
                             </Stack>
                      
                         </div>

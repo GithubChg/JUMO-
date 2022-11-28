@@ -1,44 +1,61 @@
-import React, {useState} from 'react';
-import { useNavigate, Link, useLocation } from 'react-router-dom';
+import React, {useState,useEffect} from 'react';
+import { useNavigate, Link } from 'react-router-dom';
 import Header from '../components/Header';
-import {MenuItem, FormControl, Select, Stack, TextField, Grid} from '@mui/material';
+import {MenuItem, FormControl, Select, Stack} from '@mui/material';
 import "./css/styles.css";
 import Logout from '../components/Logout';
-
+import axios from 'axios';
 
 function MTimeModify(props) {
     const navigate = useNavigate();
 
-    const [starttime, setstarttime] = useState(1);
+    const [starttime, setstarttime] = useState("");
     const starttimeList = [
-        9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20
+        "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21"
     ]
 
-    const [startminute, setstartminute] = useState(1);
-    const startminuteList = [
-        0, 30]
+    const [startminute, setstartminute] = useState("");
+    const startminuteList = ["00", "30"]
 
-    const [endtime, setendtime] = useState(1);
+    const [endtime, setendtime] = useState("");
     const endtimeList = [
-        9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20
+        "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21"
     ]
 
-    const [endminute, setendminute] = useState(1);
-    const endminuteList = [
-        0, 30
-    ]
-    
+    const [endminute, setendminute] = useState("");
+    const endminuteList = ["00", "30"]
+
+    useEffect(() => {
+        axios({
+            url: "/api/readRestaurant",
+            method: 'post',
+            baseUrl: "http://localhost:8080"
+        }).then((res) => {
+            setstarttime(res.data.data.startTime.substr(0,2))
+            setstartminute(res.data.data.startTime.substr(3,2))
+            setendtime(res.data.data.endTime.substr(0,2))
+            setendminute(res.data.data.endTime.substr(3,2))
+        })
+    }, [])
 
     const inputStyle = {fontSize: '14px'};
 
-
     const onClickCreate = () => {
-        navigate("/manager/mtimecheck", {state: {
-            starttime: starttime,
-            startminute: startminute,
-            endtime: endtime,
-            endminute: endminute,
-        }});
+        axios({
+            url: "/api/updateRestaurant",
+            method: 'post',
+            data: { startTime: starttime+":"+startminute, endTime: endtime+":"+endminute},
+            baseUrl: "http://localhost:8080"
+        }).then((res) => {
+            alert("변경이 완료되었습니다.")
+            navigate("/manager/mtimecheck", {state: {
+                starttime: starttime,
+                startminute: startminute,
+                endtime: endtime,
+                endminute: endminute,
+            }});
+        })
+        
     };
 
     return (
@@ -64,8 +81,6 @@ function MTimeModify(props) {
                     </div>
                     <Logout />
                 </Stack>
-
- 
                 <div className="content">
                     <div className="guide">운영 시간을 입력해주세요</div>
                     <Stack direction="row" alignItems="center" className="subcontent">
@@ -84,7 +99,6 @@ function MTimeModify(props) {
                                 onChange={(e) => setstarttime(e.target.value)}
                                 size="small"
                                 style={inputStyle}
-                                
                             >
                                 {
                                     starttimeList.map((item, idx) => (
@@ -93,7 +107,6 @@ function MTimeModify(props) {
                             </Select>
                         </FormControl>
                         <span style={{fontSize: '14px', margin: '0 15px 0 5px'}}>시</span>
-                    
                         <FormControl sx={{ minHeight: 25, minWidth: 60 }}>
                             <Select
                                 labelId="startminute-label"
@@ -112,7 +125,6 @@ function MTimeModify(props) {
                             </Select>
                         </FormControl>
                         <span style={{fontSize: '14px', margin: '0 0 0 5px'}}>분</span>
-
                         </Stack>
                     <Stack direction="row" alignItems="center" className="subcontent">
                         <div className="subtitle">종료 시간</div>
@@ -126,7 +138,6 @@ function MTimeModify(props) {
                                 onChange={(e) => setendtime(e.target.value)}
                                 size="small"
                                 style={inputStyle}
-                                
                             >
                                 {
                                     endtimeList.map((item) => (
@@ -154,10 +165,7 @@ function MTimeModify(props) {
                             </Select>
                         </FormControl>
                         <span style={{fontSize: '14px', margin: '0 0 0 5px'}}>분</span>
-                
                     </Stack>
-                    
-
                     <div style={{marginLeft: '45%', marginTop: '50px', marginBottom: '50px' }}>
                         <button className="btn" onClick={onClickCreate}>변경</button>
                     </div>
