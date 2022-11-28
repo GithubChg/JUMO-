@@ -12,20 +12,21 @@ axios({
     console.log(data)
     for (var item in data) {
         MenuList.push([
-            data[item].menuName, 
-            data[item].price, 
-            data[item].description, 
+            data[item].menuName,
+            Number(data[item].price),
+            data[item].description,
             data[item].stock,
             data[item].allergy,
             data[item].imageLocation,
         ]);
     }
+    console.log({"result": data[item].price + 1})
     console.log({"MenuList": MenuList})
 })
 
-// INSERT INTO menu 
-// (menu_name, allergy, description, image_location, price, stock) 
-// VALUES 
+// INSERT INTO menu
+// (menu_name, allergy, description, image_location, price, stock)
+// VALUES
 // ("메뉴1", "알러지1", "설명1", "", 20000, 5),
 // ("메뉴2", "알러지2", "설명2", "", 30000, 5),
 // ("메뉴3", "알러지3", "설명3", "", 40000, 5),
@@ -36,5 +37,7 @@ axios({
 // ("메뉴8", "알러지8", "설명8", "", 26000, 5),
 // ("메뉴9", "알러지9", "설명9", "", 62000, 5),
 // ("메뉴10", "알러지10", "설명10", "", 10000, 5);
+
+
 
 export default MenuList;
