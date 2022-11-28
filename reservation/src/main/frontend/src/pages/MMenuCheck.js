@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { useNavigate,Link, useLocation } from 'react-router-dom';
 import Stack from '@mui/material/Stack';
 import Header from '../components/Header';
 import "./css/styles.css";
@@ -7,15 +7,17 @@ import TimeList from "../data/TimeList.js";
 import MenuList from "../data/MenuList.js";
 import { People } from '@mui/icons-material';
 
+import Logout from '../components/Logout';
+
 function MMenuCheck() {
     // 파라미터 받아오기
     const location = useLocation();
 
-    const _id = location.state.id;
-    const _name = location.state.name;
-    const _name1 = location.state.name1;
-    const _price = location.state.price;
-    const _people = location.state.people;
+    const menu = location.state.menu;
+    const name = location.state.name;
+    const name1 = location.state.name1;
+    const price = location.state.price;
+    const people = location.state.people;
 
     return (
         <>
@@ -31,10 +33,10 @@ function MMenuCheck() {
                             <Link to="/manager/resvstats" className="menuLink">예약 통계 조회</Link>
                         </div>
                         <div className="menuGroup">매장 관리</div>
-                        <div className="menuBtn on">
+                        <div className="menuBtn">
                             <Link to="/manager/mtimemodify" className="menuLink">운영 시간 변경</Link>
                         </div>
-                        <div className="menuBtn">
+                        <div className="menuBtn on">
                             <Link to="/manager/mmenuview" className="menuLink">메뉴 조회/변경</Link>
                         </div>
                     </div>
@@ -47,7 +49,8 @@ function MMenuCheck() {
                     <Stack direction="row">
                         <div style={{minWidth: '500px'}}>
 
-                            
+                        <div style={{height: 10}}></div>
+                        
                             <Stack direction="row" alignItems="center" className="subcheck">
                                 <div className="subtitle">이름</div>
                                 <div className="contentcheck">{name}</div>
@@ -64,6 +67,7 @@ function MMenuCheck() {
                                 <div className="subtitle">재고</div>
                                 <div className="contentcheck">{People}</div>
                             </Stack>
+
                         </div>
                     </Stack>
                 </div>
