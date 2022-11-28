@@ -12,28 +12,20 @@ import MenuList from "../data/MenuList.js";
 import MenuModal from '../components/MenuModal';
 import "./css/styles.css";
 import axios from 'axios';
+import ReservedTime from '../data/ReservedTime';
 
 function ResvCreate() {
     // 예약 날짜 설정
     const dateNow = new Date();
-    const today = dateNow.toISOString().slice(0, 10);
+    const today = dateNow.getFullYear()+"-"+(dateNow.getMonth()+1)+"-"+dateNow.getDate();
     const [date, setDate] = useState(today);
     const endDate = new Date(dateNow.getFullYear(), dateNow.getMonth(), dateNow.getDate()+7).toISOString().slice(0, 10);
-    
+
     // 예약 시간 설정
     const selected = new Date(date.slice(0,4), date.slice(5,7), date.slice(8,10));
     const now = new Date(today.slice(0,4), today.slice(5,7), today.slice(8,10));
     const diff =  selected.getTime() - now.getTime();
 
-    const t = [
-        [0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0],
-        [1, 0, 0, 0, 0, 1, 0, 0, 1, 1, 1, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    ];
     const [time, setTime] = useState(-1);
 
     // 예약 인원 설정
@@ -151,7 +143,6 @@ function ResvCreate() {
     return (
         <>
             <Header />
-            {/* <p>백엔드에서 가져온 데이터 : {hello}</p> */}
             <div className="box">
                 <div className="menu">
                     <div className="menuBtn on">
@@ -197,7 +188,7 @@ function ResvCreate() {
                         <Grid container rowSpacing={0.5} columnSpacing={0.5}>
                         {
                                 TimeList.map((item, idx) => (
-                                t[diff/(1000 * 60 * 60 * 24)][idx]===0 ?
+                                ReservedTime[diff/(1000 * 60 * 60 * 24)][idx]===0 ?
                                 <Grid item key={item+idx}>
                                     <label
                                         className="timeBtn"
