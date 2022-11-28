@@ -4,6 +4,7 @@ import Header from '../components/Header';
 import {MenuItem, FormControl, Select, Stack, TextField} from '@mui/material';
 import "./css/styles.css";
 import Logout from '../components/Logout';
+import axios from 'axios';
 
 function MMenuModify() {
     const navigate = useNavigate();
@@ -25,14 +26,27 @@ function MMenuModify() {
         0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10
     ];
 
-    const onClickCreate = () => {
-        navigate("/manager/mmenucheck", {state: {
-            name: name,
-            detail: detail,
-            allergy: allergy,
-            price: price,
-            stock: stock,
-        }});
+        const oldMenuName = 
+    const onClickModify = () => {
+
+        const result = {};
+        result["menuName"] = name;
+        result["description"] = detail;
+        result["allergy"] = allergy;
+        result["price"] = price;
+        result["stock"] = stock;
+
+        axios({
+        url: "/api/updateMenu",
+        method: 'post',
+        data: result,
+        baseUrl: "http://localhost:8080"
+        }).then((res) => {
+            console.log(res)
+            console.log("통신 성공")
+            alert("메뉴가 변경 되었습니다! 메뉴 조회 화면으로 돌아갑니다.")
+             navigate("/manager/mmenuview");
+        })
     };
 
     return (
@@ -149,7 +163,7 @@ function MMenuModify() {
                         <span style={{fontSize: '14px', margin: '0 0 0 5px'}}>개</span>
                     </Stack>
                     <div style={{marginLeft: '45%', marginTop: '50px', marginBottom: '50px' }}>
-                        <button className="btn" onClick={onClickCreate}>변경</button>
+                        <button className="btn" onClick={onClickModify}>변경</button>
                     </div>
                 </div>
             </div>

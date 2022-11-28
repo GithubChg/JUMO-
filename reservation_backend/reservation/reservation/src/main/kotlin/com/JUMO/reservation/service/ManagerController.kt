@@ -110,11 +110,12 @@ class ManagerController {
         return returnJSON
     }
 
-    @PostMapping("/updateMenu")
+    @PostMapping("/api/updateMenu")
     @Throws(IOException::class)
     fun updateMenu(@RequestBody vo: VO): String{
         var returnJSON = ""
         var oldMenuName=vo.oldMenuName
+        var menuName=vo.menuName
         var price=vo.price
         var description=vo.description
         var allergy=vo.allergy
@@ -130,6 +131,8 @@ class ManagerController {
             targetMenu.allergy=vo.allergy
             targetMenu.stock=vo.stock
             targetMenu.imageLocation=vo.imageLocation
+            targetMenu.menuName=vo.menuName
+
             menuRepository!!.save(targetMenu)
             returnJSON="updateMenu_success"
         }
