@@ -249,7 +249,7 @@ class ManagerController {
 
     }
 
-    @PostMapping("/readRestaurant")
+    @PostMapping("/api/readRestaurant")
     @Throws(IOException::class)
     fun readRestaurant(): String{
         var returnJSON=""
