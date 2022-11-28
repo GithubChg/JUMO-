@@ -20,7 +20,7 @@ function ResvCreate() {
     useEffect(() => {
         setTimeout(() => {
             setLoading(false)
-        }, 2500);
+        }, 2000);
     })
 
     // 예약 날짜 설정
@@ -267,7 +267,7 @@ function ResvCreate() {
                                         <span style={{fontSize: '12px', marginBottom: '10px'}}>{item[1].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}원</span>
                                         <div style={{width: '120px', height: '85px', backgroundColor: 'transparent'}} />
                                         <img className="menuImage" src={`img/img${idx+1}.jpg`} alt="메뉴 이미지" title="자세히보기" />
-                                        <MenuModal name={MenuList[idx][0]} price={MenuList[idx][1]} detail={MenuList[idx][2]} src={`img/img${idx+1}.jpg`} allergy={MenuList[idx][4]} />
+                                        <MenuModal name={MenuList[idx][0]} price={MenuList[idx][1]} detail={MenuList[idx][2]} src={`img/img${idx+1}.jpg`} />
                                         <Stack direction="row" justifyContent="center" alignItems="center" spacing={1}>
                                             <button 
                                                 name="menu"
