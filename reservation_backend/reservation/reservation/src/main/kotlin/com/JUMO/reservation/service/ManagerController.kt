@@ -141,7 +141,7 @@ class ManagerController {
         return returnJSON
     }
 
-    @PostMapping("/deleteMenu")
+    @PostMapping("/api/deleteMenu")
     @Throws(IOException::class)
     fun deleteMenu(@RequestBody vo: VO): String{
         var returnJSON = ""

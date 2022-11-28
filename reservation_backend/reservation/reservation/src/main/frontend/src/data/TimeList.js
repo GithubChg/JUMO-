@@ -8,7 +8,7 @@ axios({
     baseUrl: "http://localhost:8080"
 }).then((res) => {
     console.log("통신 성공")
-    console.log(res.data.data)
+    console.log(res.data)
     const startHour = res.data.data.startTime.substr(0,2)
     const startMinute = res.data.data.startTime.substr(3,2)
     const endHour = res.data.data.endTime.substr(0,2)
