@@ -12,7 +12,7 @@ import axios from 'axios';
 function MMenuView(props) {
     const navigate = useNavigate();
     const [menuList, setMenuList] = useState([]);
-    const columns = ['이름', '설명', '금액', '재고', '']
+    const columns = ['이름', '설명','알러지', '금액', '재고', '']
     const ls = []
     axios({
         url: "/api/readMenuList",
@@ -21,14 +21,16 @@ function MMenuView(props) {
     }).then((res) => {
         console.log("통신 성공")
         const data = res.data.menuList
-
+        console.log(data)
 
         for (var i=0; i<data.length; i++) {
            ls.push({
             name: data[i].menuName,
-            comment: data[i].comment,
-            price: data[i].price,
-            stock: data[i].stock,
+            detail: data[i].description,
+            allergy: data[i].allergy,
+            price: Number(data[i].price),
+            stock: Number(data[i].stock),
+            imageLocation: data[i].imageLocation
            });
         }
         console.log(ls)
@@ -59,7 +61,6 @@ return (
                     </div>
                     <Logout />
                 </Stack>
-
                 <div className="content">
                     <table>
                         <thead>
@@ -73,21 +74,21 @@ return (
                             {menuList.map((item, idx) => (
                                 <tr key={item.name+item.number}>
                                     <td width="80px">{item.name}</td>
-                                    <td width="200px">{item.name1}</td>
-                                    <td width="80px">{item.price}</td>
-                                    <td width="40px">{item.people}</td>
-                                   
-
-                                    <td width="50px">
-                                        <Stack direction="row">
+                                    <td width="150px">{item.detail}</td>
+                                    <td width="120px">{item.allergy}</td>
+                                    <td width="50px">{item.price}</td>
+                                    <td width="40px">{item.stock}</td>
+                                    <td width="40px">
+                                        <Stack direction="row" justifyContent="center">
                                             <IconButton onClick={() => {
                                                 if(window.confirm("메뉴를 변경하시겠습니까?")) {
                                                     alert("메뉴 변경 페이지로 이동합니다.")
                                                     navigate("/manager/mmenumodify", {state: {
                                                         name: menuList[idx].name,
-                                                        name1: menuList[idx].name1,
+                                                        detail: menuList[idx].detail,
+                                                        allergy: menuList[idx].allergy,
                                                         price: menuList[idx].price,
-                                                        people: menuList[idx].people,
+                                                        stock: menuList[idx].stock,
                                                     }})
                                                 }
                                             }}>
@@ -96,7 +97,7 @@ return (
                                             <IconButton onClick={() => {
                                                 if(window.confirm("메뉴를 정말 삭제하시겠습니까?")) {
                                                     alert("메뉴가 삭제되었습니다.")
-                                                    const newData = menuList.filter((d) => d.number !== item.number);
+                                                    const newData = menuList.filter((d) => d.name !== item.name);
 //                                                    setData(newData);
                                                 }
                                             }}>
