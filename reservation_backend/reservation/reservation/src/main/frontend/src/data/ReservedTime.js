@@ -20,6 +20,7 @@ axios({
             time: TimeList.indexOf(data[i].reservationDate.substr(11))
         })
     }
+    
     console.log(ls)
 
     if (data.length!==0) {

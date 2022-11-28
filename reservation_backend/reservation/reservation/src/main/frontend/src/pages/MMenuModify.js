@@ -26,10 +26,11 @@ function MMenuModify() {
         0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10
     ];
 
-        const oldMenuName = 
+
     const onClickModify = () => {
 
         const result = {};
+        result["oldMenuName"] = _name
         result["menuName"] = name;
         result["description"] = detail;
         result["allergy"] = allergy;
@@ -42,7 +43,8 @@ function MMenuModify() {
         data: result,
         baseUrl: "http://localhost:8080"
         }).then((res) => {
-            console.log(res)
+           console.log(result.oldMenuName)
+           console.log(result.menuName)
             console.log("통신 성공")
             alert("메뉴가 변경 되었습니다! 메뉴 조회 화면으로 돌아갑니다.")
              navigate("/manager/mmenuview");
