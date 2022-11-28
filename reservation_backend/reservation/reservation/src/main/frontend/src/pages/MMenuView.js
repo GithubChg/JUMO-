@@ -96,7 +96,18 @@ return (
                                             </IconButton>
                                             <IconButton onClick={() => {
                                                 if(window.confirm("메뉴를 정말 삭제하시겠습니까?")) {
+                                                const menuName = item.name
+                                                axios({
+                                                    url: "/api/deleteMenu",
+                                                    method: 'post',
+                                                    data: {menuName},
+                                                    baseUrl: "http://localhost:8080"
+                                                }).then((res) => {
+                                                    console.log("통신 suc")
+                                                    console.log(menuName)
                                                     alert("메뉴가 삭제되었습니다.")
+                                                })
+
                                                     const newData = menuList.filter((d) => d.name !== item.name);
 //                                                    setData(newData);
                                                 }
